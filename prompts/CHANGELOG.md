@@ -22,3 +22,15 @@ Changes from v2:
 2. Instructions: test data must be literal plain text (no HTML escaping, no described values). Target metric: executability.
 
 This changes two things at once (see L-14). They target different metrics, so each effect can still be attributed.
+
+## v4
+Changes from v3 (instructions only; the user input, including the UI map, is identical to v3, so the comparison isolates the effect of the instructions):
+1. Oracle: "rejected with a clear message" and "error page / crash / endless loading" are separate outcomes; only expect what the tester can observe, and give an observable check or a "cannot verify" note when access is missing; one verdict rule per case (no "either/or" oracles); say whether browser-level blocking counts as Pass or Fail.
+2. Independence and data: each case creates its own preconditions; one invalid value per negative case; give an alternative route when an earlier step can hide the element a later step needs.
+3. Dates: relative to the execution date; successful cases at least 30 days ahead; a unique resource and date range per case; time zone stated when "today" matters.
+4. Real-user scenarios: added failures around the application (slow or dropped network, server error response, refresh during submit).
+5. Output: after the table, a "Not covered" section listing the scenarios not included and why.
+
+Sources: the QA lead's triage of the v1 peer review (three rules), the findings that the peer reviewer flagged in v1, v2 and v3 alike (`reviewer/results/comparison-across-versions.md`), and the gap analysis against ten scenarios AI usually misses. All rules are generic heuristics, not descriptions of known defects (L-13).
+
+Target metrics: fewer reviewer blockers, no unobservable oracles, no colliding or expiring dates, and coverage of the environment-failure scenarios.
