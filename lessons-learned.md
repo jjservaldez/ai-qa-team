@@ -102,6 +102,67 @@ Running log of lessons from building and evaluating the AI test-case agent. Each
 **What happened:** v3 TC-036 (same-day Check In and Check Out) expects a clear message. In the app no message appears, so the first review marked the case as not executable and as a hallucination.
 **Lesson:** When the app doesn't do what a correct expected result says, the test fails, and that is the test doing its job. The rubric judges whether the case is valid, runnable and well-specified, not whether the app passes it. The real issue in TC-036 was elsewhere: its price check guarded against the wrong value (£140) instead of the actual risk (0 nights, £40 in fees).
 
+### L-23 · The AI suite was strong on data and weak on "things going slightly wrong"
+**What happened:** A gap analysis of v3 against 10 scenarios AI usually misses (from a post by Raghvendra Singh, QA II @ Amazon) found:
+- **Covered (3):** unusual data, Back/refresh, two tabs.
+- **Partial (2):** double click without a slow network; stale form.
+- **Gaps (3):** time zone/midnight, network timeout while submitting, partial API failures.
+- **Not applicable (2):** permissions, old data with new code.
+
+**Lesson:** The agent covers what the requirements describe. Failures of the network, the clock and other services are not in the ACs, so it doesn't think of them unless asked.
+**Applied:** v4 added environment failures to the real-user scenarios and asked the agent to list what it did not cover and why.
+
+### L-29 · Per-case verdict rules create new contradictions; use one rule for the whole suite
+**What happened:** v4 asked the agent to give every case one verdict rule, to say whether browser-level blocking counts as Pass, and to use "question for the product owner" when the ACs don't decide. The vague either/or oracles disappeared, but each case invented its own rule:
+- A truncated field is called Pass in the notes and Fail in the inherited expected result.
+- "No prompt = question for the PO" turned an AC12 violation into something that can never fail.
+- Two cases judge a rejected apostrophe differently.
+
+**Lesson:** This is L-17 again: a fix for one failure mode created another. Verdict rules written case by case drift apart. Consistency has to be defined once, at suite level.
+**Applied:** Planned for v5: one suite-level verdict rule applied everywhere (rejected with a clear message = Pass; crash or error page = Fail; behavior the ACs don't define = Question), with "Question" never used to soften something an AC does require.
+
+### L-30 · A second agent finds what the first one misses, but the severity call stays human
+**What happened:** A read-only reviewer agent, run in a fresh context with only the cases, the ACs and the UI map, reviewed v1 twice.
+- **Both passes found all 11 problems of the earlier review.**
+- **The second pass repeated 6 of the 7 comments the QA lead had accepted from the first.**
+- **Each pass added findings of its own.** One was a scenario that matches a real bug found during exploration (BUG-06), deduced from the UI map alone.
+- **Severity was not stable.** The same finding was a blocker in one pass and major in the other.
+
+**Lesson:** Two independent passes find more than one, and a reviewer with its own context doesn't share the generator's blind spots. Severity labels from an LLM are not reliable enough to act on by themselves.
+**Applied:** The reviewer runs on every generated suite. The QA lead triages its comments and owns the final severity.
+
+### L-31 · An attack payload has to be one that would actually fire
+**What happened:** Every version used `<script>alert(1)</script>` to test script injection. The v4 review pointed out that a `<script>` tag inserted into a page as HTML does not run in modern browsers. A real injection bug would pass the test unnoticed. It suggested an event-handler payload (`<img src=x onerror=alert(1)>`) and checking the page's elements in DevTools.
+**Lesson:** A security test is only as good as its payload. "No alert appeared" proves nothing if the payload could never have shown one.
+**Applied:** Security cases use payloads that execute when rendered, and check the DOM as well as the visible page.
+
+## Running the tests
+
+### L-24 · Check that the environment is healthy before starting a run
+**What happened:** On 2026-11-23 the run started and only then showed that every room page loaded forever. `GET /api/room/{id}` was returning 500 while the home page and `GET /api/room` worked fine.
+**Lesson:** If the home page works, that doesn't mean the flow works. Without a health check, time goes into "running" cases that can only fail for environment reasons, and blocked cases can be mistaken for product failures.
+**Applied:** The test plan's entry criteria require `GET /api/room/{1,2,3}` to return 200 before Smoke starts. Cases that can't run are marked Blocked with the cause and the time window.
+
+### L-25 · An outage can still reveal a real product bug
+**What happened:** During the outage, the browser console showed `SyntaxError: Unexpected token 'I', "Internal S"... is not valid JSON`. The frontend tries to read the plain-text error as JSON, the promise fails without being caught, and the spinner never stops.
+**Lesson:** Keep two things separate. The 500 is an environment problem (not reported). The UI having no error handling is a product bug, and an outage is the only way to see it on a public demo. The console turned "I saw a spinner" into specific evidence.
+**Applied:** Logged as CAND-09 with console and network evidence. TC-055 was added to cover it.
+
+### L-26 · Fixed dates in test cases expire
+**What happened:** By the time the suite was run, TC-001 (9–11 Nov), TC-002 ("today" = 19 Oct) and TC-004 (23–25 Nov) had dates that were in the past or about to be. Run as written, they would test past-date handling instead of the happy path.
+**Lesson:** Test data with fixed dates has a shelf life. A case that expires quietly turns into a different test.
+**Applied:** Dates moved in the execution sheet, TC-002 made relative to the execution day, "no past dates in the sheet" added to the entry criteria, and v4 asks for dates relative to the execution date.
+
+### L-27 · Fix the execution copy, not the agent's original output
+**What happened:** The expired dates appeared in the AI's original output ("v3-run1 test cases") and in the execution sheet.
+**Lesson:** The agent's raw output is the evidence for evaluating it. Editing it to make it runnable erases what the agent actually produced.
+**Applied:** Dates were changed only in "Execution - final suite". The raw runs stay as generated.
+
+### L-28 · When an agent drives the browser, confirm that it can actually see the page
+**What happened:** With the browser pane hidden, the page had a 0×0 viewport and the agent read an empty page, even though the HTML was loaded. Setting a 1280×900 viewport fixed it.
+**Lesson:** An empty read from an agent can be a tooling problem, not an empty page. Before concluding anything, check the agent's own setup: viewport, network log and status codes.
+**Applied:** Runs record the viewport and start by checking the network log, not only the visible text.
+
 ## Writing test cases
 
 ### L-11 · Say where to verify
