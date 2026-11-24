@@ -14,6 +14,8 @@
 | v2 run 2 | 42 | 32 | 0.76 | 4 | 18 | 10 | 0 |
 | v3 run 1 | 48 | 28 | 0.58 | 2 | 15 | 11 | 0 |
 | v3 run 2 | 46 | 23 | 0.50 | 1 | 13 | 9 | 0 |
+| v4 run 1 | 46 | 17 | 0.37 | 1 | 11 | 5 | 0 (one near-duplicate noted) |
+| v4 run 2 | 46 | 21 | 0.46 | 3 | 10 | 8 | 0 |
 
 ## Reading
 
@@ -21,6 +23,36 @@
 - **v2 is not clearly better than v1 by comment count.** It is better on duplicates and blockers, but it has as many comments per case. This fits what the human evaluation found: v2's new instructions fixed the oracles but introduced UI claims it could not know (L-17). The reviewer flagged several of those claims ("the calendar shows the dates as unavailable", "the calendar spans both months").
 - **Both v3 run 1 blockers are expired dates.** The suite was generated on 2026-10-19, and by 2026-11-24 TC-001 and TC-004 are in the past. That is a test-data shelf-life problem (L-26), not a design defect at generation time. Counting only design defects, v3 run 1 has 0 blockers.
 - **The reviewer rediscovered a known human finding without being told about it.** In both v2 runs it flagged the HTML-escaped XSS payload (`&lt;script&gt;`) as a blocker. The human review had found the same issue (L-18).
+
+## v4 vs. v3 (added 2026-11-24)
+
+v4 changed only the instructions (see `prompts/CHANGELOG.md`). Same model (Opus 5.5, effort Medium), new chat outside any project, two runs.
+
+- **Fewer comments per case:** 0.37–0.46 in v4 against 0.50–0.58 in v3.
+- **Blockers did not drop:** 1–3 in v4 against 1–2 in v3 (and both v3 run 1 blockers were expired dates). By blocker count alone, v4 is not better.
+- **What v4 did fix.** None of these appear in either v4 run:
+  - expired or colliding dates;
+  - cases that depend on another case having run;
+  - either/or oracles;
+  - HTML-escaped data.
+
+  The reviewer confirmed that the date allocations don't overlap within each suite. v4 also added environment-failure cases (offline, slow network, refresh during submit), and both runs explained their gaps in the "Not covered" section.
+- **What the v4 blockers are.** They are subtler than before:
+  - an XSS payload (`<script>`) that would not run even if the bug existed (run 1);
+  - a price oracle that misses NaN and £0 (run 2, TC-030);
+  - a double booking still unobservable after a refresh (run 2, TC-042).
+- **A side effect of the new instructions (L-17 again).** The rules "say whether browser blocking counts as Pass" and "use 'question for the product owner' when the ACs don't decide" created new contradictions:
+  - Truncation is called Pass in the notes but Fail in the inherited expected result (run 2).
+  - "No prompt = question for the PO" softens AC12 into a non-failure (run 2, TC-034).
+  - TC-019 and TC-043 disagree on rejected apostrophes (run 1).
+
+  The rules fixed the vague oracles, but they added verdict rules that conflict with each other.
+- **Still open from the recurring list:**
+  - stored XSS can't be observed from the guest UI;
+  - the booking count can't be observed after a refresh or double submit;
+  - there is no re-run rule for the shared demo data.
+
+**Reading:** v4 removed the structural problems that the reviewer had flagged in every earlier version. The remaining problems are about consistency between verdict rules and about choosing payloads and oracles that actually detect a defect. A v5 should address verdict consistency (one suite-level rule, applied everywhere) rather than add more case-level rules.
 
 ## Findings that appear in every version
 
@@ -37,6 +69,6 @@ Points 3 and 1 match two of the three v4 rules the QA lead set in the v1 triage:
 
 ## Limits of this comparison
 
-- Only v1 has two passes. v2 and v3 have one pass per run, so the differences between runs of the same version are partly reviewer variation.
+- Only v1 has two reviewer passes; v4 has two generator runs with one review each. v2 and v3 have one pass per run, so the differences between runs of the same version are partly reviewer variation.
 - Comment counts are a rough measure. A comment's weight depends on its content.
 - Only v1 has a human triage (7 comments). The v2 and v3 comments have not been triaged, so their precision is unknown.
