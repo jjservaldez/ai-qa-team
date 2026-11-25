@@ -16,6 +16,8 @@
 | v3 run 2 | 46 | 23 | 0.50 | 1 | 13 | 9 | 0 |
 | v4 run 1 | 46 | 17 | 0.37 | 1 | 11 | 5 | 0 (one near-duplicate noted) |
 | v4 run 2 | 46 | 21 | 0.46 | 3 | 10 | 8 | 0 |
+| v5 run 1 | 45 | 21 | 0.47 | 0 | 9 | 12 | 0 |
+| v5 run 2 | 43 | 19 | 0.44 | 0 | 8 | 11 | 0 |
 
 ## Reading
 
@@ -53,6 +55,22 @@ v4 changed only the instructions (see `prompts/CHANGELOG.md`). Same model (Opus 
   - there is no re-run rule for the shared demo data.
 
 **Reading:** v4 removed the structural problems that the reviewer had flagged in every earlier version. The remaining problems are about consistency between verdict rules and about choosing payloads and oracles that actually detect a defect. A v5 should address verdict consistency (one suite-level rule, applied everywhere) rather than add more case-level rules.
+
+## v5 vs. v4 (added 2026-11-24)
+
+v5 changed only the instructions: one set of verdict rules for the whole suite (L-29), and security payloads that would actually run (L-31). Same model and setup, two runs.
+
+- **Blockers: 0 in both runs,** against 1–3 in v4. This is the first version with no blockers.
+- **Comments per case: 0.44–0.47,** the same range as v4 (0.37–0.46). v5 did not reduce the total amount of feedback; it moved it from blockers to major and minor comments.
+- **Both runs followed the new format.** Both open with a "Verdict rules" section. Each run also introduced shared notation on its own (run 1: `AVAIL`, `CONF`, `R1–R7`; run 2: a named availability check), which made the cases shorter and more uniform.
+- **Security cases fixed.** Both runs used `<img src=x onerror=alert(1)>` and checked the DOM. The reviewer still notes that stored XSS can't be seen without admin access, and that a text search for "onerror" can give a false Fail (run 2).
+- **Verdict contradictions: fewer, not zero.**
+  - Run 1 still had two: the 10-second endless-loading rule against a case note that calls no feedback a Question, and a truncation rule broad enough to excuse a defect.
+  - Run 2 resolved both in its suite rules (a valid value that gets cut is Fail; a date-shift procedure for Blocked cases), but left the endless-loading limit undefined under throttling.
+- **A recurring problem the v5 rules don't address: "Same steps as TC-0xx".** Both v4 run 2 and v5 run 2 wrote negative cases as "Same steps as" a base case whose steps include its own data ("leave Firstname empty"). A tester following the steps literally gets the wrong input. This is a candidate rule for v6: a case that reuses another case's steps must not inherit its data.
+- **Still open across all versions:** stored values and stored XSS can't be seen without admin access; reruns on a shared, persistent demo collide with earlier bookings.
+
+**Reading:** v5 achieved what it targeted: no blockers, consistent suite-level rules, working security payloads. The remaining comments are mostly ambiguity in individual steps rather than defects that would let a bug pass. The next gains are more likely to come from the environment (a local copy with admin access, which would let the suite check stored values and booking counts) than from more prompt rules.
 
 ## Findings that appear in every version
 
