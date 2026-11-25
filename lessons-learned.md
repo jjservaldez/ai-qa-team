@@ -136,6 +136,11 @@ Running log of lessons from building and evaluating the AI test-case agent. Each
 **Lesson:** A security test is only as good as its payload. "No alert appeared" proves nothing if the payload could never have shown one.
 **Applied:** Security cases use payloads that execute when rendered, and check the DOM as well as the visible page.
 
+### L-32 · "Same steps as TC-0xx" copies the base case's data too
+**What happened:** In v4 run 2 and v5 run 2, the negative cases for name, email and phone were written as "Same steps as TC-011", with only the Test Data changed. TC-011's steps contain its own data ("leave Firstname empty", "click into Lastname"). A tester who follows the steps literally leaves Firstname empty in TC-012 as well, gets an extra error and marks a Fail that isn't real. The reviewer flagged it as major in 8 cases.
+**Lesson:** Referencing another case saves space, but the steps it points to must be generic. Steps that carry data make the shortcut inherit the wrong input. This is the same family as L-11 and L-29: whatever the tester has to fill in on their own, two testers will fill in differently.
+**Applied:** Candidate rule for v6: a case may reuse another case's steps only if those steps contain no test data ("type the values from the Test Data column"); otherwise it writes its own steps.
+
 ## Running the tests
 
 ### L-24 · Check that the environment is healthy before starting a run

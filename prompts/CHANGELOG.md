@@ -34,3 +34,23 @@ Changes from v3 (instructions only; the user input, including the UI map, is ide
 Sources: the QA lead's triage of the v1 peer review (three rules), the findings that the peer reviewer flagged in v1, v2 and v3 alike (`reviewer/results/comparison-across-versions.md`), and the gap analysis against ten scenarios AI usually misses. All rules are generic heuristics, not descriptions of known defects (L-13).
 
 Target metrics: fewer reviewer blockers, no unobservable oracles, no colliding or expiring dates, and coverage of the environment-failure scenarios.
+
+## v5
+Changes from v4 (instructions only; the user input, including the UI map, is identical to v4):
+1. Suite-level verdict rules: the output starts with a "Verdict rules" section that defines Pass, Fail, Blocked and Question once, and every case follows it. "Question" is never used for behavior an AC requires. The treatment of browser-level blocking is decided once for the suite, and a value cut to a valid length is not submitted. The agent checks that similar cases reach the same verdict. Replaces the per-case verdict instructions of v4. Source: L-29 (per-case rules contradicted each other in v4).
+2. Security payloads: use payloads that would run or visibly change the page if the input were handled unsafely, check the page's elements in DevTools, and note where a displayed value can't be checked. Source: L-31 (a `<script>` tag inserted as HTML never runs).
+
+This changes two things at once (see L-14). They target different metrics (verdict consistency and security-case strength), so each effect can still be attributed.
+
+Target metrics: no contradictory verdict rules between cases, no "Question" applied to required behavior, and security cases whose payload could actually detect a defect.
+
+## v6 (draft, not run yet)
+Changes from v5 (instructions only; the user input, including the UI map, is identical to v5):
+1. Reused steps: a case may say "Same steps as TC-0xx" only if those steps contain no test data or field-specific actions; otherwise it writes its steps out in full. Source: L-32 (in v4 run 2 and v5 run 2, negative cases inherited "leave Firstname empty" from their base case; 8 major comments).
+2. Waiting limits: the Verdict rules section defines how long to wait before a loading state counts as endless loading, with and without throttling. Source: the v5 run 2 review (no limit under Slow 3G, so testers would disagree on Fail).
+
+This changes two things at once (see L-14). Both target the same metric (steps two testers execute the same way), so they are measured together; the reviewer's check #2 (ambiguous steps) is the main signal.
+
+Target metrics: no "Same steps as" that inherits data, explicit waiting limits for every network case, and fewer check #2 comments than v5 (v5: 7 in run 2).
+
+Status: drafted 2026-11-24. Expected gain is small (see `reviewer/results/comparison-across-versions.md`, "v5 vs. v4"); a local environment with admin access is the bigger next step.
