@@ -43,3 +43,14 @@ Changes from v4 (instructions only; the user input, including the UI map, is ide
 This changes two things at once (see L-14). They target different metrics (verdict consistency and security-case strength), so each effect can still be attributed.
 
 Target metrics: no contradictory verdict rules between cases, no "Question" applied to required behavior, and security cases whose payload could actually detect a defect.
+
+## v6 (draft, not run yet)
+Changes from v5 (instructions only; the user input, including the UI map, is identical to v5):
+1. Reused steps: a case may say "Same steps as TC-0xx" only if those steps contain no test data or field-specific actions; otherwise it writes its steps out in full. Source: L-32 (in v4 run 2 and v5 run 2, negative cases inherited "leave Firstname empty" from their base case; 8 major comments).
+2. Waiting limits: the Verdict rules section defines how long to wait before a loading state counts as endless loading, with and without throttling. Source: the v5 run 2 review (no limit under Slow 3G, so testers would disagree on Fail).
+
+This changes two things at once (see L-14). Both target the same metric (steps two testers execute the same way), so they are measured together; the reviewer's check #2 (ambiguous steps) is the main signal.
+
+Target metrics: no "Same steps as" that inherits data, explicit waiting limits for every network case, and fewer check #2 comments than v5 (v5: 7 in run 2).
+
+Status: drafted 2026-11-24. Expected gain is small (see `reviewer/results/comparison-across-versions.md`, "v5 vs. v4"); a local environment with admin access is the bigger next step.
