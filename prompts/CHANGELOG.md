@@ -34,3 +34,12 @@ Changes from v3 (instructions only; the user input, including the UI map, is ide
 Sources: the QA lead's triage of the v1 peer review (three rules), the findings that the peer reviewer flagged in v1, v2 and v3 alike (`reviewer/results/comparison-across-versions.md`), and the gap analysis against ten scenarios AI usually misses. All rules are generic heuristics, not descriptions of known defects (L-13).
 
 Target metrics: fewer reviewer blockers, no unobservable oracles, no colliding or expiring dates, and coverage of the environment-failure scenarios.
+
+## v5
+Changes from v4 (instructions only; the user input, including the UI map, is identical to v4):
+1. Suite-level verdict rules: the output starts with a "Verdict rules" section that defines Pass, Fail, Blocked and Question once, and every case follows it. "Question" is never used for behavior an AC requires. The treatment of browser-level blocking is decided once for the suite, and a value cut to a valid length is not submitted. The agent checks that similar cases reach the same verdict. Replaces the per-case verdict instructions of v4. Source: L-29 (per-case rules contradicted each other in v4).
+2. Security payloads: use payloads that would run or visibly change the page if the input were handled unsafely, check the page's elements in DevTools, and note where a displayed value can't be checked. Source: L-31 (a `<script>` tag inserted as HTML never runs).
+
+This changes two things at once (see L-14). They target different metrics (verdict consistency and security-case strength), so each effect can still be attributed.
+
+Target metrics: no contradictory verdict rules between cases, no "Question" applied to required behavior, and security cases whose payload could actually detect a defect.
