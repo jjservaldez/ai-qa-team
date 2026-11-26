@@ -9,7 +9,7 @@ The test suite I would hand to a team: the v3 run 1 output after my review, with
 | Level | Cases | When to run |
 |---|---|---|
 | Smoke (11) | TC-001, TC-003, TC-004, TC-006, TC-008, TC-019, TC-029, TC-031, TC-035, TC-038, TC-043 | First, on every build: if one fails, stop and report |
-| Regression (13) | TC-017, TC-020, TC-023, TC-024, TC-027, TC-028, TC-032, TC-033, TC-036, TC-048, TC-049, TC-050, TC-052 | After a fix: the cases tied to known bugs |
+| Regression (14) | TC-017, TC-020, TC-023, TC-024, TC-027, TC-028, TC-032, TC-033, TC-036, TC-048, TC-049, TC-050, TC-052, TC-053 | After a fix: the cases tied to known bugs |
 | Full (28) | All other cases | Before a release |
 
 Each case appears in one level only. TC-019 and TC-029 are in Smoke because they check core validation, but they also cover BUG-05, so they fail on the current app until that bug is fixed.
@@ -97,5 +97,6 @@ Cases that cover each known bug, on the path where it was reproduced or a closel
 - **TC-037** has a reworded precondition.
 - **2026-11-26 triage:** every fixed December 2026 date moved to the same day in 2027, keeping the room and the number of nights: TC-001 (14–16/12/2027), TC-003 (07–10/12/2027), TC-004 (2027-12-21..23), TC-011 (30/11–02/12/2027) and TC-012 (30/12/2027–02/01/2028). TC-005 now uses relative dates (`<D>` to `<D+2>`, D = the run date). TC-001 step 6 and TC-011 step 5 no longer assert how the check-out day is highlighted (PO-4). "Return home" is called a link, not a button, in TC-001, TC-002 and TC-043.
   - **Smoke now covers AC10–AC12:** TC-031 (AC10), TC-035 (AC11) and TC-038 (AC12) moved from Regression to Smoke in the execution copy only; `final-test-suite.csv` keeps the original levels. TC-038 no longer asserts how the check-out day is highlighted (PO-4).
+  - **TC-035 split:** TC-035 (Smoke) now types the dates into the fields and no longer has an expected result for a booking step it never performs. The date-picker variant is the new TC-053 (Regression, AC11). The execution copy now has 53 cases.
 
 The reviewed original stays unchanged in `final-test-suite.csv`.

@@ -1,0 +1,226 @@
+- generic [ref=f33e1]:
+  - generic [ref=f33e3]:
+    - navigation [ref=f33e25]:
+      - generic [ref=f33e26]:
+        - link "Shady Meadows B&B" [ref=f33e27] [cursor=pointer]:
+          - /url: /
+        - list [ref=f33e30]:
+          - listitem [ref=f33e31]:
+            - link "Rooms" [ref=f33e32] [cursor=pointer]:
+              - /url: /#rooms
+          - listitem [ref=f33e33]:
+            - link "Booking" [ref=f33e34] [cursor=pointer]:
+              - /url: /#booking
+          - listitem [ref=f33e35]:
+            - link "Amenities" [ref=f33e36] [cursor=pointer]:
+              - /url: /#amenities
+          - listitem [ref=f33e37]:
+            - link "Location" [ref=f33e38] [cursor=pointer]:
+              - /url: /#location
+          - listitem [ref=f33e39]:
+            - link "Contact" [ref=f33e40] [cursor=pointer]:
+              - /url: /#contact
+          - listitem [ref=f33e41]:
+            - link "Admin" [ref=f33e42] [cursor=pointer]:
+              - /url: /admin
+    - generic [ref=f33e46]:
+      - heading "Welcome to Shady Meadows B&B" [level=1] [ref=f33e47]
+      - paragraph [ref=f33e48]: Welcome to Shady Meadows, a delightful Bed & Breakfast nestled in the hills on Newingtonfordburyshire. A place so beautiful you will never want to leave. All our rooms have comfortable beds and we provide breakfast from the locally sourced supermarket. It is a delightful place.
+      - link "Book Now" [ref=f33e49] [cursor=pointer]:
+        - /url: "#booking"
+    - generic [ref=f33e50]:
+      - generic [ref=f33e54]:
+        - heading "Check Availability & Book Your Stay" [level=3] [ref=f33e55]
+        - generic [ref=f33e57]:
+          - generic [ref=f33e58]:
+            - generic [ref=f33e59]: Check In
+            - textbox [ref=f33e62]: 15/03/2027
+          - generic [ref=f33e63]:
+            - generic [ref=f33e64]: Check Out
+            - textbox [active] [ref=f33e67]: 13/03/2027
+          - button "Check Availability" [ref=f33e70] [cursor=pointer]
+      - generic [ref=f33e73]:
+        - generic [ref=f33e74]:
+          - heading "Our Rooms" [level=2] [ref=f33e75]
+          - paragraph [ref=f33e76]: Comfortable beds and delightful breakfast from locally sourced ingredients
+        - generic [ref=f33e77]:
+          - generic [ref=f33e79]:
+            - img "Single Room" [ref=f33e81]
+            - generic [ref=f33e82]:
+              - heading "Single" [level=5] [ref=f33e83]
+              - paragraph [ref=f33e84]: Aenean porttitor mauris sit amet lacinia molestie. In posuere accumsan aliquet. Maecenas sit amet nisl massa. Interdum et malesuada fames ac ante.
+              - generic [ref=f33e86]:
+                - generic [ref=f33e87]:
+                  - generic [ref=f33e88]: 
+                  - text: TV
+                - generic [ref=f33e89]:
+                  - generic [ref=f33e90]: 
+                  - text: WiFi
+                - generic [ref=f33e91]:
+                  - generic [ref=f33e92]: 
+                  - text: Safe
+            - generic [ref=f33e93]:
+              - generic [ref=f33e94]: £100 per night
+              - link "Book now" [ref=f33e95] [cursor=pointer]:
+                - /url: /reservation/1?checkin=2027-03-15&checkout=2027-03-13
+          - generic [ref=f33e97]:
+            - img "Single Room" [ref=f33e99]
+            - generic [ref=f33e100]:
+              - heading "Double" [level=5] [ref=f33e101]
+              - paragraph [ref=f33e102]: Vestibulum sollicitudin, lectus ac mollis consequat, lorem orci ultrices tellus, eleifend euismod tortor dui egestas erat. Phasellus et ipsum nisl.
+              - generic [ref=f33e104]:
+                - generic [ref=f33e105]:
+                  - generic [ref=f33e106]: 
+                  - text: TV
+                - generic [ref=f33e107]:
+                  - generic [ref=f33e108]: 
+                  - text: Radio
+                - generic [ref=f33e109]:
+                  - generic [ref=f33e110]: 
+                  - text: Safe
+            - generic [ref=f33e111]:
+              - generic [ref=f33e112]: £150 per night
+              - link "Book now" [ref=f33e113] [cursor=pointer]:
+                - /url: /reservation/2?checkin=2027-03-15&checkout=2027-03-13
+          - generic [ref=f33e115]:
+            - img "Single Room" [ref=f33e117]
+            - generic [ref=f33e118]:
+              - heading "Suite" [level=5] [ref=f33e119]
+              - paragraph [ref=f33e120]: Etiam metus metus, fringilla ac sagittis id, consequat vel neque. Nunc commodo quis nisl nec posuere. Etiam at accumsan ex.
+              - generic [ref=f33e122]:
+                - generic [ref=f33e123]:
+                  - generic [ref=f33e124]: 
+                  - text: Radio
+                - generic [ref=f33e125]:
+                  - generic [ref=f33e126]: 
+                  - text: WiFi
+                - generic [ref=f33e127]:
+                  - generic [ref=f33e128]: 
+                  - text: Safe
+            - generic [ref=f33e129]:
+              - generic [ref=f33e130]: £225 per night
+              - link "Book now" [ref=f33e131] [cursor=pointer]:
+                - /url: /reservation/3?checkin=2027-03-15&checkout=2027-03-13
+    - generic [ref=f33e133]:
+      - generic [ref=f33e134]:
+        - heading "Our Location" [level=2] [ref=f33e135]
+        - paragraph [ref=f33e136]: Find us in the beautiful Newingtonfordburyshire countryside
+      - generic [ref=f33e137]:
+        - generic [ref=f33e141]:
+          - generic [ref=f33e144]:
+            - generic:
+              - img:
+                - generic [ref=f33e145] [cursor=pointer]
+          - generic [ref=f33e148]:
+            - generic [ref=f33e149]:
+              - link "Pigeon" [ref=f33e150] [cursor=pointer]:
+                - /url: https://pigeon-maps.js.org/
+              - text: "|"
+            - generic [ref=f33e151]:
+              - text: ©
+              - link "OpenStreetMap" [ref=f33e152] [cursor=pointer]:
+                - /url: https://www.openstreetmap.org/copyright
+              - text: contributors
+        - generic [ref=f33e155]:
+          - heading "Contact Information" [level=3] [ref=f33e156]
+          - generic [ref=f33e157]:
+            - generic [ref=f33e158]: 
+            - generic [ref=f33e160]:
+              - heading "Address" [level=5] [ref=f33e161]
+              - paragraph [ref=f33e162]: Shady Meadows B&B, Shadows valley, Newingtonfordburyshire, Dilbery, N1 1AA
+          - generic [ref=f33e163]:
+            - generic [ref=f33e164]: 
+            - generic [ref=f33e166]:
+              - heading "Phone" [level=5] [ref=f33e167]
+              - paragraph [ref=f33e168]: "012345678901"
+          - generic [ref=f33e169]:
+            - generic [ref=f33e170]: 
+            - generic [ref=f33e172]:
+              - heading "Email" [level=5] [ref=f33e173]
+              - paragraph [ref=f33e174]: fake@fakeemail.com
+          - separator [ref=f33e175]
+          - heading "Getting Here" [level=4] [ref=f33e176]
+          - paragraph [ref=f33e177]: Welcome to Shady Meadows, a delightful Bed & Breakfast nestled in the hills on Newingtonfordburyshire. A place so beautiful you will never want to leave. All our rooms have comfortable beds and we provide breakfast from the locally sourced supermarket. It is a delightful place.
+    - generic [ref=f33e183]:
+      - heading "Send Us a Message" [level=3] [ref=f33e184]
+      - generic [ref=f33e185]:
+        - generic [ref=f33e186]:
+          - generic [ref=f33e187]: Name
+          - textbox "Name" [ref=f33e188]
+        - generic [ref=f33e189]:
+          - generic [ref=f33e190]: Email
+          - textbox "Email" [ref=f33e191]
+        - generic [ref=f33e192]:
+          - generic [ref=f33e193]: Phone
+          - textbox "Phone" [ref=f33e194]
+        - generic [ref=f33e195]:
+          - generic [ref=f33e196]: Subject
+          - textbox "Subject" [ref=f33e197]
+        - generic [ref=f33e198]:
+          - generic [ref=f33e199]: Message
+          - textbox [ref=f33e200]
+        - button "Submit" [ref=f33e202] [cursor=pointer]
+    - contentinfo [ref=f33e203]:
+      - generic [ref=f33e204]:
+        - generic [ref=f33e205]:
+          - generic [ref=f33e206]:
+            - heading "Shady Meadows B&B" [level=5] [ref=f33e207]
+            - paragraph [ref=f33e208]: Welcome to Shady Meadows, a delightful Bed & Breakfast nestled in the hills on Newingtonfordburyshire. A place so beautiful you will never want to leave. All our rooms have comfortable beds and we provide breakfast from the locally sourced supermarket. It is a delightful place.
+            - generic [ref=f33e209]:
+              - link "" [ref=f33e210] [cursor=pointer]:
+                - /url: "#"
+              - link "" [ref=f33e212] [cursor=pointer]:
+                - /url: "#"
+              - link "" [ref=f33e214] [cursor=pointer]:
+                - /url: "#"
+          - generic [ref=f33e216]:
+            - heading "Contact Us" [level=5] [ref=f33e217]
+            - list [ref=f33e218]:
+              - listitem [ref=f33e219]:
+                - generic [ref=f33e220]: 
+                - text: Shady Meadows B&B, Shadows valley, Newingtonfordburyshire, Dilbery, N1 1AA
+              - listitem [ref=f33e221]:
+                - generic [ref=f33e222]: 
+                - text: "012345678901"
+              - listitem [ref=f33e223]:
+                - generic [ref=f33e224]: 
+                - text: fake@fakeemail.com
+          - generic [ref=f33e225]:
+            - heading "Quick Links" [level=5] [ref=f33e226]
+            - list [ref=f33e227]:
+              - listitem [ref=f33e228]:
+                - link "Home" [ref=f33e229] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=f33e230]:
+                - link "Rooms" [ref=f33e231] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=f33e232]:
+                - link "Booking" [ref=f33e233] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=f33e234]:
+                - link "Contact" [ref=f33e235] [cursor=pointer]:
+                  - /url: "#"
+        - separator [ref=f33e236]
+        - generic [ref=f33e238]:
+          - text: restful-booker-platform v2.2 Created by
+          - link "Mark Winteringham" [ref=f33e239] [cursor=pointer]:
+            - /url: http://www.mwtestconsultancy.co.uk
+          - text: "- © 2019-26"
+          - link "Cookie-Policy" [ref=f33e240] [cursor=pointer]:
+            - /url: /cookie
+          - text: "-"
+          - link "Privacy-Policy" [ref=f33e241] [cursor=pointer]:
+            - /url: /privacy
+          - text: "-"
+          - link "Admin panel" [ref=f33e242] [cursor=pointer]:
+            - /url: /admin
+  - generic [ref=f33e10] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=f33e11]
+    - generic [ref=f33e15]:
+      - button "Open issues overlay" [ref=f33e16]:
+        - generic [ref=f33e17]:
+          - generic [aria-hidden] [ref=f33e18]: "0"
+          - generic [ref=f33e19]: "1"
+        - generic [ref=f33e20]: Insight
+      - button "Collapse issues badge" [ref=f33e21]
+  - alert [ref=f33e24]

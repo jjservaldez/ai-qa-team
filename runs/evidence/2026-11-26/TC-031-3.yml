@@ -1,0 +1,78 @@
+- generic [ref=f25e1]:
+  - generic [active]:
+    - generic [ref=f25e27]:
+      - generic [ref=f25e28]:
+        - navigation [ref=f25e30]:
+          - generic [ref=f25e31]:
+            - button [disabled] [ref=f25e32]:
+              - img "previous" [ref=f25e33]
+            - button "Issues 1/ 1" [ref=f25e35] [cursor=pointer]:
+              - text: Issues
+              - generic [ref=f25e37]:
+                - generic [ref=f25e38]: 1/
+                - generic [ref=f25e39]: "1"
+            - button "Insights 1/ 1" [ref=f25e40] [cursor=pointer]:
+              - text: Insights
+              - generic [ref=f25e42]:
+                - generic [ref=f25e43]: 1/
+                - generic [ref=f25e44]: "1"
+            - button [ref=f25e45] [cursor=pointer]:
+              - img "next" [ref=f25e46]
+        - link "Next.js 16.4.3 (stale) Turbopack" [ref=f25e49] [cursor=pointer]:
+          - /url: https://nextjs.org/docs/messages/version-staleness
+          - generic "There is a newer version (16.4.6) available, upgrade recommended!" [ref=f25e52]: Next.js 16.4.3 (stale)
+          - generic [ref=f25e53]: Turbopack
+      - dialog "Runtime TypeError" [ref=f25e55]:
+        - generic [ref=f25e58]:
+          - generic [ref=f25e60]:
+            - generic [ref=f25e61]:
+              - generic [ref=f25e62]: Runtime TypeError
+              - generic [ref=f25e64]:
+                - button "Copy Error Info" [ref=f25e65] [cursor=pointer]
+                - button "No related documentation found" [disabled] [ref=f25e68]
+                - button "Attach Node.js inspector" [ref=f25e71] [cursor=pointer]
+            - generic [ref=f25e80]: Cannot read properties of undefined (reading 'length')
+          - generic [ref=f25e82]:
+            - generic [ref=f25e83]:
+              - paragraph [ref=f25e85]:
+                - generic [ref=f25e90]: src/components/reservation/BookingForm.tsx (211:44) @ BookingForm
+                - button "Open in editor" [ref=f25e91] [cursor=pointer]
+              - generic [ref=f25e95]:
+                - generic [ref=f25e96]: 209 | </div>
+                - generic [ref=f25e97]: 210 |
+                - generic [ref=f25e98]: "> 211 | {bookingErrors.length > 0 && ("
+                - generic [ref=f25e99]: "| ^"
+                - generic [ref=f25e100]: 212 | <div className="alert alert-danger" role="alert">
+                - generic [ref=f25e101]: 213 | <ul>
+                - generic [ref=f25e102]: "214 | {bookingErrors.map((error, index) => ("
+            - generic [ref=f25e103]:
+              - generic [ref=f25e104]:
+                - paragraph [ref=f25e105]:
+                  - text: Call Stack
+                  - generic [ref=f25e106]: "14"
+                - button "Show 12 ignore-listed frame(s)" [ref=f25e107] [cursor=pointer]
+              - generic [ref=f25e110]:
+                - generic [ref=f25e111]:
+                  - text: BookingForm
+                  - button "Open BookingForm in editor" [ref=f25e112] [cursor=pointer]
+                - text: src/components/reservation/BookingForm.tsx (211:44)
+              - generic [ref=f25e115]:
+                - generic [ref=f25e116]:
+                  - text: Reservation
+                  - button "Open Reservation in editor" [ref=f25e117] [cursor=pointer]
+                - text: src/app/reservation/[id]/page.tsx (64:21)
+    - generic [ref=f25e10] [cursor=pointer]:
+      - button "Open Next.js Dev Tools" [ref=f25e11]
+      - generic [ref=f25e15]:
+        - button "Open issues overlay" [ref=f25e16]:
+          - generic [ref=f25e17]:
+            - generic [aria-hidden] [ref=f25e18]: "0"
+            - generic [ref=f25e19]: "1"
+          - generic [ref=f25e20]: Issue · 1 Insight
+        - button "Collapse issues badge" [ref=f25e21]
+  - generic [ref=f25e121]:
+    - heading "This page couldn’t load" [level=1] [ref=f25e124]
+    - paragraph [ref=f25e125]: Reload to try again, or go back.
+    - generic [ref=f25e126]:
+      - button "Reload" [ref=f25e128] [cursor=pointer]
+      - button "Back" [ref=f25e129] [cursor=pointer]

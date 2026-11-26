@@ -288,12 +288,12 @@ TC-034,Double-clicking the submit button creates only one booking,Negative,"AC9,
 Lastname: Gonzalez
 Email: maria.gonzalez@example.com
 Phone: +523312345678","One ""Booking Confirmed"" panel with 2027-03-08 - 2027-03-10. No ""dates not available"" error shown after the confirmation, no error page.",Medium,Full,"Counting stored bookings needs Admin (no credentials). An ""already booked"" error after the double click suggests two requests were sent.",v3 TC-034,"Category changed from Security to Negative (concurrency, not security).",
-TC-035,Check Out before Check In on the home page,Negative,AC11,Browser open.,"1. Open https://automationintesting.online.
-2. Set the test data dates.
+TC-035,Check Out before Check In typed into the home page date fields,Negative,AC11,Browser open.,"1. Open https://automationintesting.online.
+2. Type the test data dates into the fields: click Check In, select its text, type the date and press Escape; then do the same for Check Out. Do not pick dates in the date picker.
 3. Click ""Check Availability"".
 4. Check the availability section and ""Our Rooms"".
 5. If a ""Book now"" button is shown, click it on the Single card and check the URL and Price Summary.","Check In: 15/03/2027
-Check Out: 13/03/2027","A clear message near the date fields says Check Out must be after Check In, or the date picker prevents the selection. No error page. If a room page opens: Price Summary does not show negative nights or negative amounts, and a booking with valid data must not reach ""Booking Confirmed"".",High,Smoke,Message text and location not specified (assumption).,v3 TC-035,No change,"BUG-01, BUG-02"
+Check Out: 13/03/2027","A clear message near the date fields says Check Out must be after Check In, or the typed Check Out is not accepted. No error page. If a room page opens: Price Summary does not show negative nights or negative amounts.",High,Smoke,"Message text and location not specified (assumption). Dates are typed, not picked; the date-picker variant is TC-053. This case does not submit; TC-048 covers submitting reversed dates.",v3 TC-035,No change,BUG-02
 TC-036,Same-day Check In and Check Out (0 nights),Edge/Boundary,AC11,Browser open.,"1. Open https://automationintesting.online.
 2. Set the test data dates; click ""Check Availability"".
 3. Check for a message.
@@ -314,10 +314,10 @@ Firstname: Maria
 Lastname: Gonzalez
 Email: maria.gonzalez@example.com
 Phone: +523312345678","No ""Booking Confirmed"" for past dates; a clear message explains the dates are not valid. No error page.",Medium,Full,"Past-date handling is not in the ACs (assumption). If the booking is confirmed, raise with the PO.",v3 TC-037,No change,
-TC-038,"""View Details"" in Similar Rooms keeps the selected dates",Happy path,"AC12, AC1, AC2",Browser open.,"1. Open https://automationintesting.online/reservation/1?checkin=2027-04-05&checkout=2027-04-07.
+TC-038,"""View Details"" in Similar Rooms keeps the selected dates",Happy path,"AC12, AC2",Browser open.,"1. Open https://automationintesting.online/reservation/1?checkin=2027-04-05&checkout=2027-04-07.
 2. Scroll to ""Similar Rooms You Might Like"".
 3. On the Double card click ""View Details"".
-4. Check the URL, room name, calendar (click ""Next"" to April 2027) and Price Summary.",None,"The Double room page opens. Either: URL is /reservation/2?checkin=2027-04-05&checkout=2027-04-07, ""Selected"" bar starting on 5 April and covering 5 and 6 April 2027 (whether the check-out day, 7 April, is also highlighted is not asserted; see PO-4), Price Summary £150 × 2 nights = £300, £25, £15, Total £340; or a clear prompt asks to select dates. Fail if other dates (for example today/tomorrow) are shown or booked without the user selecting them.",High,Smoke,,v3 TC-038,No change,BUG-03
+4. Check the URL, room name, calendar (click ""Next"" to April 2027) and Price Summary.",None,"The Double room page opens. Only the URL, the ""Selected"" bar and the Price Summary count for the verdict. Either: URL is /reservation/2?checkin=2027-04-05&checkout=2027-04-07, ""Selected"" bar starting on 5 April and covering 5 and 6 April 2027 (whether the check-out day, 7 April, is also highlighted is not asserted; see PO-4), Price Summary £150 × 2 nights = £300, £25, £15, Total £340; or a clear prompt asks to select dates. Fail if the URL, the ""Selected"" bar or the Price Summary shows dates the user did not select (for example today/tomorrow). The calendar opening on another month (for example the current one) with today highlighted is not a failure.",High,Smoke,This case does not submit a booking.,v3 TC-038,No change,BUG-03
 TC-039,Room URL without date parameters,Edge/Boundary,AC12,Browser open.,"1. Open in the address bar: https://automationintesting.online/reservation/1
 2. Check the panel and Price Summary.
 3. Click ""Reserve Now"", type the test data, click ""Reserve Now"".
@@ -418,3 +418,13 @@ Step 4: ""Booking Confirmed"" with 2027-09-13 - 2027-09-15.",Medium,Full,"Confir
 TC-052,"""Amenities"" navigation link goes to the amenities section",UX,—,Browser open.,"1. Open https://automationintesting.online.
 2. Click ""Amenities"" in the top navigation.
 3. Check the URL and the page.",None,The page scrolls to a visible Amenities section (or opens an amenities page). Fail if the URL changes to /#amenities but nothing changes on screen.,Low,Regression,Outside the booking-flow ACs; kept as a navigation regression check.,Added by reviewer (regression),New.,BUG-07
+TC-053,Check Out before Check In selected with the home page date picker,Negative,"AC11, AC2",Browser open.,"1. Open https://automationintesting.online.
+2. Open the Check In date picker and select 15 March 2027, using only the picker (no typing).
+3. Open the Check Out date picker and try to select 13 March 2027, using only the picker.
+4. Check the Check In and Check Out fields and any message.
+5. If Check Out is not after Check In, click ""Check Availability"" and check the availability section and ""Our Rooms"".
+6. If a ""Book now"" button is shown, click it on the Single card and check the URL and Price Summary.","Check In: 15/03/2027
+Check Out: 13/03/2027
+(both selected in the date picker)","Step 2: once Check In is 15/03/2027, Check Out is no longer before it: Check Out is moved after Check In or cleared, or a clear message near the date fields says Check Out must be after Check In.
+Step 4: whatever the picker does, Check Out is after Check In (or empty, with a prompt to select it). Fail if Check Out is on or before Check In, even if a message is shown.
+Steps 5–6 (run only if step 4 failed, to record how far the reversed range gets): no error page; if a room page opens, the Price Summary does not show negative nights or negative amounts.",High,Regression,Split from TC-035 (2026-11-26 triage). Record which picker clicks were used. This case does not submit; TC-048 covers submitting reversed dates.,"Added by QA lead (2026-11-26 triage, split from TC-035)",New.,"BUG-02, CAND-17"
