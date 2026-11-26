@@ -59,14 +59,14 @@ Runs: [Smoke](runs/execution-2026-11-25-smoke.md) · [Regression + Full](runs/ex
 | ID | Severity | Summary | Status (2026-11-25) |
 |---|---|---|---|
 | [BUG-01](bugs/BUG-01.md) | High | A rejected booking (409) crashes the page | Reproduced on local by 6 cases; network and console evidence |
-| [BUG-02](bugs/BUG-02.md) | High | Invalid date range gives negative or zero-night prices | Reproduced on local |
+| [BUG-02](bugs/BUG-02.md) | High | Invalid date range gives negative or zero-night prices | Reproduced on local (client-side; the server rejects these ranges) |
 | [BUG-06](bugs/BUG-06.md) | High | Clicking a calendar date lowers the price, but the original range is booked | Reproduced on local (shows £190, books £490) |
 | [BUG-03](bugs/BUG-03.md) | Medium | "View Details" loses the dates | **Not reproduced on local build**; verify on demo |
 | [BUG-04](bugs/BUG-04.md) | Medium | Names made only of digits are accepted | Reproduced · **Needs PO decision** (no AC requires letters) |
 | [BUG-05](bugs/BUG-05.md) | Low | Error messages don't name the field | Reproduced against AC8 (clarified, PO confirmation pending) |
 | [BUG-07](bugs/BUG-07.md) | Low | "Amenities" link goes nowhere | Reproduced · **Needs PO decision** (outside this story) |
 
-New candidates from the local run: past dates are booked (CAND-08); the calendar shades the check-out day (CAND-10); spaces count toward name length (CAND-11); a room URL without dates spins forever (CAND-12); invalid dates show £NaN (CAND-13); a missing room returns 500 (CAND-14); double submit (CAND-15). The bug files in [bugs/](bugs/README.md) still hold the October evidence. Updating them with the local-run evidence is next.
+New candidates from the local run: past dates are booked (CAND-08); the calendar shades the check-out day (CAND-10); spaces count toward name length (CAND-11); a room URL without dates spins forever (CAND-12); invalid dates show £NaN (CAND-13); a missing room returns 500 (CAND-14); double submit (CAND-15). Each report in [bugs/](bugs/README.md) keeps its October evidence and adds a local re-test section. See also [CANDIDATES.md](bugs/CANDIDATES.md) and the [PO decision log](bugs/PO-DECISIONS.md).
 
 ## Environment and how to run it
 

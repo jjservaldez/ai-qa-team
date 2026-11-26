@@ -41,3 +41,19 @@ Each message names the field and the rule, for example "Phone must be between 11
 ## Notes
 
 - The wording ("size must be between…", "must not be empty") looks like default server-side validation messages passed through to the UI.
+
+## Re-test on the local copy (2026-11-25)
+
+**Environment:** Local copy of restful-booker-platform, commit `efe2deb` (2026-10-23), http://localhost:3003 · Claude desktop browser pane, 1280×900 · executed by the agent, re-checks 2026-11-26
+**Result:** reproduced (TC-019, 020, 023, 024, 027, 028, 029, 050). Also seen in TC-021 and TC-030, outside their oracles.
+
+| Message shown | Names the field? |
+|---|---|
+| size must be between 3 and 18 | No (Firstname) |
+| size must be between 3 and 30 | No (Lastname) |
+| size must be between 11 and 21 | No (Phone) |
+| must not be empty (×2 on an empty form) | No (Email and Phone) |
+| Firstname should not be blank / Lastname should not be blank | Yes |
+| must be a well-formed email address | Yes ("email") |
+
+**AC8 was clarified by QA on 2026-11-25:** "an error message is shown for each invalid field, and each message identifies the field it refers to". This is waiting for PO confirmation (PO-6). The Fail verdicts rest on the clarified AC8.

@@ -41,3 +41,10 @@ Names made only of digits are rejected with a clear message. (No acceptance crit
 
 - The same booking also used `test@test` as email, which the app accepts. It is technically a valid format, so it's recorded as an observation, not part of this bug.
 - Logged as a question for the product owner: should names allow digits at all?
+
+## Re-test on the local copy (2026-11-25)
+
+**Environment:** Local copy of restful-booker-platform, commit `efe2deb` (2026-10-23), http://localhost:3003 · Claude desktop browser pane, 1280×900 · executed by the agent, re-checks 2026-11-26
+**Result:** reproduced (TC-017). Firstname `12345`, Lastname `67890` → "Booking Confirmed" 2027-01-25 - 2027-01-26, with no message.
+
+**Status: Needs PO decision (PO-1).** AC4 and AC5 only define length, so the test case verdict is **Question**, not Fail. The ticket stays open with its evidence until the PO answers. If digits-only names are not allowed, the PO adds the rule to AC4/AC5 and TC-017 becomes Fail (L-33).
