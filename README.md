@@ -11,7 +11,7 @@ A team of AI agents that design, review and run manual test cases, led by a huma
 | **Designer** | Live | Writes manual test cases from a user story, its acceptance criteria and a UI map | [prompts/](prompts/) (v1–v5, v6 draft) |
 | **Peer Reviewer** | Live | Independent second set of eyes. Read-only, clean context. Reviews generated suites *and* execution results | [.claude/agents/peer-reviewer.md](.claude/agents/peer-reviewer.md) · [reviewer/](reviewer/README.md) |
 | **QA Lead** (human) | — | Approves prompts, triages every review comment, owns severity and verdict rules, talks to the PO | [lessons-learned.md](lessons-learned.md) |
-| **Executor** | Prototype | Runs the cases in a browser and records evidence. So far an agent session run by hand; the next step is Playwright MCP | [runs/execution-*](runs/) |
+| **Executor** | Built, first run pending | Runs the cases in a real browser through Playwright MCP and records evidence. Defined as a subagent with the rules learned from the manual run and its reviews | [.claude/agents/executor.md](.claude/agents/executor.md) · [.mcp.json](.mcp.json) |
 | **Data Validator** | Built, not wired in | Checks booking data with SQL; its `--check` mode is verified by mutation | [shady-meadows-sql](https://github.com/jjservaldez/shady-meadows-sql) |
 | **Reporter** | Planned | Drafts bug reports from the Executor's evidence, then sends them back through the Reviewer | — |
 
@@ -107,7 +107,8 @@ To re-run the suite, reset the data first by restarting `run_locally.sh` without
 ## Repository structure
 
 ```
-.claude/agents/   peer-reviewer subagent
+.claude/agents/   peer-reviewer and executor subagents
+.mcp.json         Playwright MCP (pinned version) for the executor
 .claude/skills/   env-health-check (pre-run check, with script) · run-prompt-version (the v1–v5 process)
 prompts/          Designer prompts v1–v6 and CHANGELOG
 runs/             raw generator output per version, and execution results
