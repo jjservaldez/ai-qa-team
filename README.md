@@ -1,90 +1,133 @@
-# Evaluating an LLM test-case generator
+# AI QA Team
 
-A QA case study: can an LLM write manual test cases that actually find bugs, and how do you measure that?
+A team of AI agents that design, review and run manual test cases, led by a human QA lead. The case study tests a real booking flow end to end. Every prompt, run, review and verdict is in this repo, unedited.
 
-I explored a booking flow by hand, wrote acceptance criteria from what I observed, then asked an LLM (Claude) to generate test cases from those criteria. I reviewed every generated case against a rubric, measured how many of the bugs I had already found its cases would catch, and improved the prompt over three versions.
+**App under test:** Shady Meadows B&B booking flow ([restful-booker-platform](https://github.com/mwinteringham/restful-booker-platform)) · **QA lead:** Jose Serna, QA Engineer
 
-**App under test:** [Shady Meadows B&B](https://automationintesting.online) booking flow (public demo app for testers) · **Author:** Jose Serna, QA Engineer
+## The team
+
+| Role | Status | What it does | Where |
+|---|---|---|---|
+| **Designer** | Live | Writes manual test cases from a user story, its acceptance criteria and a UI map | [prompts/](prompts/) (v1–v5, v6 draft) |
+| **Peer Reviewer** | Live | Independent second set of eyes. Read-only, clean context. Reviews generated suites *and* execution results | [.claude/agents/peer-reviewer.md](.claude/agents/peer-reviewer.md) · [reviewer/](reviewer/README.md) |
+| **QA Lead** (human) | — | Approves prompts, triages every review comment, owns severity and verdict rules, talks to the PO | [lessons-learned.md](lessons-learned.md) |
+| **Executor** | Prototype | Runs the cases in a browser and records evidence. So far an agent session run by hand; the next step is Playwright MCP | [runs/execution-*](runs/) |
+| **Data Validator** | Built, not wired in | Checks booking data with SQL; its `--check` mode is verified by mutation | [shady-meadows-sql](https://github.com/jjservaldez/shady-meadows-sql) |
+| **Reporter** | Planned | Drafts bug reports from the Executor's evidence, then sends them back through the Reviewer | — |
+
+```
+Designer → Peer Reviewer → QA Lead → Executor → Peer Reviewer (on results) → QA Lead → bug reports + PO decision log
+```
 
 ## Results
 
-| | v1 | v2 | v3 |
-|---|---|---|---|
-| What changed | Baseline prompt | + rules for expected results, real-user scenarios | + UI map, literal test data |
-| Test cases (run 1) | 40 | 44 | 48 |
-| Known bugs detected (of the original 5)† | **1** | **4** (both runs) | **3 + 1 partial** (both runs) |
-| Expected results strong enough to fail on a real bug | 87.5% | 97.7% | 95.8% |
-| Unflagged assumptions (hallucinations) | 0 | 1 | **0** |
-| Duplicates | 7.5% | 0% | 0% |
+### Designing: 5 prompt versions, measured by the reviewer
 
-† Analytical: judged by reading each case against each bug, not by executing it. Execution of the final suite is in progress.
+| | v1 | v2 | v3 | v4 | v5 |
+|---|---|---|---|---|---|
+| Reviewer blockers per run | 5–7 | 4–6 | 1–2 | 1–3 | **0** |
+| Review comments per case | 0.78–0.83 | 0.76–0.82 | 0.50–0.58 | 0.37–0.46 | 0.44–0.47 |
 
-Full comparison: [evaluation/comparison-v1-v2-v3.md](evaluation/comparison-v1-v2-v3.md)
+Two runs per version, each in a fresh chat. v1 is one run reviewed twice. Before the reviewer was trusted, it was measured against my own review of v1: it found 11 of my 11 findings in both passes, and I accepted all 7 of the comments I triaged. Details: [reviewer/results/comparison-across-versions.md](reviewer/results/comparison-across-versions.md)
 
-**Final test suite:** 52 cases built from the v3 output after review, with peer-review fixes and regression cases for the bugs the model missed, traced to acceptance criteria and bugs: [test-suite/](test-suite/README.md)
+### Executing: 52 cases on a local copy of the app (2026-11-25)
+
+| Suite | Cases | Time (agent) | Pass | Question | Fail |
+|---|---|---|---|---|---|
+| Smoke | 8 | 3 min 44 s | 5 | 1 | 2 |
+| Regression | 16 | 4 min 29 s | 0 | 3 | 13 |
+| Full | 28 | 8 min 55 s | 19 | 5 | 4 |
+
+- **Every known bug that the cases cover reproduced, except BUG-03.** BUG-03 did not reproduce on this build.
+- **BUG-01 now has a cause backed by evidence:** the server answers 409, and the frontend throws a TypeError reading that response.
+- **The run found 6 new candidates (CAND-10 to CAND-15).** The worst is CAND-15: a double click sends two POSTs. The booking is created, but the user sees an error page.
+- **Stored data matches what the UI showed:** 32 bookings, one for each "Booking Confirmed". No rejected case stored anything, and there were no double bookings.
+- **The Peer Reviewer also reviewed the results:** 3 of my 52 verdicts changed because I had applied my own rules inconsistently, plus a set of method fixes.
+
+Runs: [Smoke](runs/execution-2026-11-25-smoke.md) · [Regression + Full](runs/execution-2026-11-25-regression-full.md) · Reviews: [reviewer/results/](reviewer/results/)
 
 ### Key findings
 
-1. **The model reached the right scenarios but wrote weak expected results.** In v1, three tests led straight to real bugs but expected only "the booking is not created". When the page crashed, that was still true, so the tests would have passed. Defining what a correct result must include took detection from 1 to 4 of 5.
-2. **Every prompt fix had a side effect.** Asking the model to say where to verify results, without describing the UI, made it guess at UI behavior. Adding a UI map removed the guesses, and also narrowed one oracle so a known bug (unnamed error messages) went from detected to partial.
-3. **One run is not a measurement.** Each version was run twice. A digits-only name test appeared in only one of the two runs, every time.
-4. **The highest-severity bug came from a person, not the model.** No prompt version found [BUG-06](bugs/BUG-06.md) (the displayed price drops but the original stay is booked). I found it while checking a UI detail before giving it to the model.
+1. **A second agent finds what the first one misses, but the human decides.** The reviewer's severity labels weren't stable between passes, so every comment goes through my triage (L-30).
+2. **Every prompt fix created a new failure mode.** For example, verdict rules written per case contradicted each other, so they moved to one suite-level rule (L-17, L-29).
+3. **More prompt rules stopped paying off after v4.** The next gain came from the environment: a local copy with stable data and network and console access (L-24).
+4. **A "Question" still gets a ticket.** If no AC covers a behavior, the verdict is Question. It is still reported, with "Needs PO decision", and the PO's answer becomes the evidence (L-33).
+5. **The highest-severity bug came from a person.** No prompt version found [BUG-06](bugs/BUG-06.md), where the displayed price drops but the original stay is booked.
 
-## Bugs found
+## Bugs
 
-7 bugs, reported with steps, expected vs. actual results and screenshots: [bugs/](bugs/README.md)
-
-| ID | Severity | Summary | Found by |
+| ID | Severity | Summary | Status (2026-11-25) |
 |---|---|---|---|
-| [BUG-01](bugs/BUG-01.md) | High | Booking panel crashes when the server rejects a booking | Exploration; one path from an AI-generated case |
-| [BUG-02](bugs/BUG-02.md) | High | Invalid date range gives negative or zero-night prices | Exploration; zero-night variant from an AI-generated case |
-| [BUG-06](bugs/BUG-06.md) | High | Clicking a calendar date lowers the price, but the original range is booked | Verifying the UI map |
-| [BUG-03](bugs/BUG-03.md) | Medium | "View Details" loses the dates (£NaN, booking fails) | Exploration |
-| [BUG-04](bugs/BUG-04.md) | Medium | Names made only of digits are accepted | Exploration |
-| [BUG-05](bugs/BUG-05.md) | Low | Error messages don't name the field | Exploration |
-| [BUG-07](bugs/BUG-07.md) | Low | "Amenities" link goes nowhere | Exploration |
+| [BUG-01](bugs/BUG-01.md) | High | A rejected booking (409) crashes the page | Reproduced on local by 6 cases; network and console evidence |
+| [BUG-02](bugs/BUG-02.md) | High | Invalid date range gives negative or zero-night prices | Reproduced on local |
+| [BUG-06](bugs/BUG-06.md) | High | Clicking a calendar date lowers the price, but the original range is booked | Reproduced on local (shows £190, books £490) |
+| [BUG-03](bugs/BUG-03.md) | Medium | "View Details" loses the dates | **Not reproduced on local build**; verify on demo |
+| [BUG-04](bugs/BUG-04.md) | Medium | Names made only of digits are accepted | Reproduced · **Needs PO decision** (no AC requires letters) |
+| [BUG-05](bugs/BUG-05.md) | Low | Error messages don't name the field | Reproduced against AC8 (clarified, PO confirmation pending) |
+| [BUG-07](bugs/BUG-07.md) | Low | "Amenities" link goes nowhere | Reproduced · **Needs PO decision** (outside this story) |
+
+New candidates from the local run: past dates are booked (CAND-08); the calendar shades the check-out day (CAND-10); spaces count toward name length (CAND-11); a room URL without dates spins forever (CAND-12); invalid dates show £NaN (CAND-13); a missing room returns 500 (CAND-14); double submit (CAND-15). The bug files in [bugs/](bugs/README.md) still hold the October evidence. Updating them with the local-run evidence is next.
+
+## Environment and how to run it
+
+The public demo (automationintesting.online) is shared, resets its data and has been down since 2026-11-23. **The evidence lives in this repo, not in the demo.** The 2026-11-25 run used a local copy pinned to a known version:
+
+| | |
+|---|---|
+| App | restful-booker-platform, commit `efe2deb` (2026-10-23) |
+| Tools | JDK 27, **Maven 3.9.14** (3.10 rejects the project's version format), Node 24 |
+| Run | `bash build_locally.sh` once, then `bash run_locally.sh` → http://localhost:3003 |
+| Health check before every run | `GET /api/room/1`, `/2`, `/3` return 200 (L-24) |
+
+To re-run the suite, reset the data first by restarting `run_locally.sh` without `-e`. The cases use fixed dates and would collide with earlier bookings.
 
 ## Method
 
-1. **Exploratory testing** of the booking flow with screen recordings, then **acceptance criteria** written from observed behavior (there are no official requirements). [exploration.md](exploration.md)
-2. **Prompt versions** that differ in one documented way each. Prompt files contain only the text sent to the model; notes live in the [changelog](prompts/CHANGELOG.md). [prompts/](prompts/)
-3. **Clean runs:** every run in a new chat with no project context, so the model never saw the known bugs. Raw output in [runs/](runs/).
-4. **Rubric review of every case** (valid, executable, hallucination, duplicate, category, expected result strong enough), then a **second-pass peer review**.
-5. **Bug detection** measured against the bugs found in exploration, classifying each miss as a model miss, an acceptance-criteria gap, or missing context.
-6. **Final suite:** the best version's output, corrected and extended by me, with traceability to ACs and bugs.
+1. **Exploratory testing** with screen recordings. Acceptance criteria were written from observed behavior, because there are no official requirements: [exploration.md](exploration.md)
+2. **Prompt versions** that each change one documented thing. Prompt files contain only what is sent to the model; notes are in the [changelog](prompts/CHANGELOG.md).
+3. **Clean runs:** every generation runs in a new chat with no project context, so the model never sees the known bugs.
+4. **Peer review** by the reviewer agent. It reads only the files it is given and never edits them. I triage every comment.
+5. **Execution** against a pinned local build. Each case records method, timing and evidence, and there is a data check through the API afterwards.
+6. **Verdict rules defined once for the whole suite** (Pass / Fail / Blocked / Question). Behavior with no AC goes to the PO decision log, not to a silent Pass.
 
-The rubric's key metric is defined as: *imagine a realistic bug in what the case tests; if a tester follows the expected result literally, would they mark Fail?* It comes from the test-oracle problem and the logic of mutation testing.
+## What I'd do differently
+
+- **Start on an environment I control.** Two recurring review findings, colliding reruns and stored XSS I couldn't see, were environment limits, not prompt problems. I spent two prompt versions learning that.
+- **Write the verdict rules down completely before executing.** All three verdicts the reviewer changed came from applying my own rules inconsistently, and two rules ("wording only" and "outside oracle") were only written down partway through the run.
 
 ## Lessons learned
 
-22 lessons, each with what happened, the lesson, and what changed: [lessons-learned.md](lessons-learned.md). A few:
+33 lessons, each with what happened, the lesson and what changed: [lessons-learned.md](lessons-learned.md). A few:
 
-- **L-07:** reaching the scenario is not the same as detecting the bug; the expected result decides.
-- **L-09:** polished AI output lowers the reviewer's guard. My first review scored 40/40 on everything; the second pass found duplicates, ambiguous steps and weak oracles.
-- **L-13:** improve the prompt with general heuristics, not the known answers, or you overfit to one app.
-- **L-20:** the reviewer can be wrong too. A claim about the calendar came from one recording's data and was reversed after checking the app.
+- **L-07:** reaching the scenario isn't the same as detecting the bug. The expected result decides.
+- **L-09:** polished AI output lowers the reviewer's guard.
+- **L-24:** check that the environment is healthy before a run. A working home page doesn't mean the flow works.
+- **L-33:** a Question verdict still gets a ticket.
 
 ## Repository structure
 
 ```
-prompts/       v1, v2, v3 prompts and CHANGELOG
-runs/          raw model output for each run (and the human-reviewed v1 suite)
-evaluation/    per-version analysis and the v1 vs v2 vs v3 comparison
-  reviews/     per-case rubric scores and peer review comments (CSV)
-bugs/          bug reports with screenshot evidence
-test-suite/    final reviewed suite (CSV) with AC and bug traceability
-exploration.md acceptance criteria, observed rules, bug log
+.claude/agents/   peer-reviewer subagent
+prompts/          Designer prompts v1–v6 and CHANGELOG
+runs/             raw generator output per version, and execution results
+reviewer/         reviewer inputs, unedited reviews, cross-version comparison
+evaluation/       rubric reviews and the v1–v3 analysis
+bugs/             bug reports with screenshot evidence
+test-suite/       final 52-case suite (Smoke / Regression / Full) with traceability
+exploration.md    acceptance criteria, observed rules, bug log
 lessons-learned.md
 ```
 
 ## Limitations
 
-- Two runs per prompt version; more runs would give a firmer consistency figure.
-- One human reviewer plus an AI peer review, not two independent human reviewers.
+- Two runs per prompt version. More runs would give a firmer consistency figure.
+- The Executor is still an agent session I run by hand. Its timings are agent speed, not a manual estimate, and some fields were set by script instead of typed. Each case records its method.
 - The reference bugs were found by the same person who reviewed the output.
-- The app is a shared public demo; other users' bookings can change availability mid-session.
-- Test data uses fixed dates (2026–2027) so every value is literal. To run the suite later, shift the dates forward and recompute the expected totals.
+- The local build and the public demo can differ (BUG-03, CAND-10). Each finding records which environment it was seen in.
 
 ## Next steps
 
-Turn the manual process into a script that sends each prompt version to the model through the API, runs it several times, and saves the output for review. That makes more runs per version cheap and is the step from a prompt to an agent.
+1. **Executor with Playwright MCP**, measured against a timed manual Smoke run.
+2. **Reporter with Jira.** Bug drafts go through the Reviewer, and I approve them before any ticket is created.
+3. **API tests with Postman and Newman in CI.**
+4. **Skills that package the process:** environment health check, running a prompt version, bug report template.
