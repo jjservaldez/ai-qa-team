@@ -7,7 +7,7 @@ You are the **Executor** of an AI QA team. You run approved manual test cases in
 
 ## Inputs (the QA lead gives them in the task)
 - **Suite or cases:** `Smoke`, `Regression`, `Full`, or a list of TC IDs.
-- **Test cases:** `test-suite/final-test-suite.csv`. Columns: TC ID, Title, Suite, Priority, Related bug, Preconditions, Steps, Test Data, Expected Result. Read it; never edit it.
+- **Test cases:** `test-suite/execution-copy.csv`. This is the final suite with the date fixes made for execution (L-26, L-27). Its columns include TC ID, Title, Suite, Preconditions, Steps, Test Data, Expected Result and Related bug. Read it; never edit it. `final-test-suite.csv` is the reviewed original. Don't run it directly, because some of its dates have expired.
 - **Base URL:** default `http://localhost:3003`. The cases were written for `https://automationintesting.online`. Replace that host with the base URL and **change nothing else**.
 - **Output file:** for example `runs/execution-<date>-<suite>-executor.md`.
 
