@@ -57,3 +57,19 @@ The booking is not created. A clear message explains why (for example "These dat
 - Likely cause (hypothesis, not confirmed): the backend correctly rejects the booking, but the frontend doesn't handle the error response.
 - Path B and C also show a wrong price before submitting (see BUG-02).
 - Not caused by the demo's data reset: path A was repeated immediately after a confirmed booking.
+
+## Re-test on the local copy (2026-11-25 and 2026-11-26)
+
+**Environment:** Local copy of restful-booker-platform, commit `efe2deb` (2026-10-23), http://localhost:3003 · Claude desktop browser pane, 1280×900 · executed by the agent, re-checks 2026-11-26
+**Result:** reproduced in 6 cases: TC-031 (exact overlap), TC-032 (partial overlap), TC-033 (two tabs), TC-034 (double click), TC-036 (same day), TC-048 (reversed dates). **Reproducibility: 6/6 paths.**
+
+**Evidence (network + console, E2):**
+- Every path: `POST /api/booking` → **409**, body `{"error":"Failed to create booking"}` (captured on 2026-11-26 for TC-033, TC-036 and TC-048; status also seen in the network log for TC-031 and TC-034).
+- Console: `Uncaught TypeError: Cannot read properties of undefined (reading 'length') at BookingForm`.
+- Then the page is replaced by "This page couldn't load".
+
+**Cause (no longer only a hypothesis):** the frontend reads `.length` from the error response as if it were a list of validation errors. This response has a single `error` string, so the render throws. The server does its job: no extra or double booking was stored in any path, confirmed through `/api/report/room/{id}`.
+
+**Worst path (TC-034, see CAND-15):** on a double click, the first POST returns 201 and the booking is created. The second returns 409 and the page crashes. The user sees an error after a booking that worked.
+
+**Note for the developers:** the server answers **409 Conflict** to invalid date ranges as well, not only to taken dates. 400 would describe a validation error better.

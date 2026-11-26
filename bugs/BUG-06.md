@@ -47,3 +47,17 @@ Either the click changes the selection everywhere (calendar, URL, price and book
 - Also reproduced on the Single room (URL 15–18 November): Total changed from £340 to £140 after the click.
 - Impact: in a real booking system this would show the guest a lower price than the stay being booked, or charge a different amount than displayed.
 - The click updates some internal state used by the Price Summary, while the calendar display, URL and booking request use the original dates (hypothesis).
+
+## Re-test on the local copy (2026-11-25)
+
+**Environment:** Local copy of restful-booker-platform, commit `efe2deb` (2026-10-23), http://localhost:3003 · Claude desktop browser pane, 1280×900 · executed by the agent, re-checks 2026-11-26
+**Result:** reproduced (TC-049). **Reproducibility: 3/3** (2 on the demo in October, 1 on the local copy).
+1. `/reservation/2?checkin=2027-09-06&checkout=2027-09-09`, September 2027: £150 x 3 nights, Total £490.
+2. One real mouse click on 20 September: the Price Summary changes to "£150 x 1 nights", Total **£190**. The calendar and the URL still show 6–9 September.
+3. Submit: "Booking Confirmed" **2027-09-06 - 2027-09-09** (3 nights). `/api/report/room/2` confirms the stored range.
+
+The user is shown £190 and booked for £490.
+
+| Before the click (local) |
+|---|
+| ![September calendar before the click](evidence/local-BUG-06-before-click-tc049.jpg) |

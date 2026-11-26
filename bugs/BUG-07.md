@@ -32,3 +32,10 @@ The URL becomes `https://automationintesting.online/#amenities`; the page positi
 | Step | Screenshot |
 |---|---|
 | URL with #amenities, no section shown | ![Amenities](evidence/BUG-07-amenities.jpg) |
+
+## Re-test on the local copy (2026-11-25)
+
+**Environment:** Local copy of restful-booker-platform, commit `efe2deb` (2026-10-23), http://localhost:3003 · Claude desktop browser pane, 1280×900 · executed by the agent, re-checks 2026-11-26
+**Result:** reproduced (TC-052). A real click on "Amenities" changes the URL to `/#amenities`, but the page doesn't scroll (scrollY stays 0). The page has no element with id `amenities`; the ids present are booking, rooms, location and contact.
+
+**Status: Needs PO decision (PO-5).** None of this story's ACs covers navigation, so the verdict is **Question**. Track this under a separate story.

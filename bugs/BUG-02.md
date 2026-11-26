@@ -49,3 +49,14 @@ The home page rejects the range with a clear message (or the date picker prevent
 ## Notes
 
 - The room page computes the price from the URL parameters (`?checkin=2026-10-17&checkout=2026-10-02`) without validating them, so the room page is missing the check too, not only the home page.
+
+## Re-test on the local copy (2026-11-25 and 2026-11-26)
+
+**Environment:** Local copy of restful-booker-platform, commit `efe2deb` (2026-10-23), http://localhost:3003 · Claude desktop browser pane, 1280×900 · executed by the agent, re-checks 2026-11-26
+**Result:** reproduced (TC-035, TC-036, TC-048).
+- Reversed dates 15/03/2027 → 13/03/2027: the date pickers accept them, no message appears, all rooms are listed. The room page shows "£100 x -2 nights", £-200, Total **£-160**.
+- Same day 17/03/2027: "£100 x 0 nights", £0, Total **£40**.
+
+**New finding (2026-11-26):** the server **rejects** these ranges (`POST /api/booking` → 409), so no invalid booking is stored. The defect is on the **client**: the home page accepts the range, and the Price Summary calculates and shows negative or zero nights. Submitting crashes the page (BUG-01).
+
+**Linked:** CAND-13. Invalid date parameters show £NaN. It is likely the same missing validation of the dates in the URL before the price is calculated.
