@@ -518,3 +518,24 @@
   - TC-009 phone typed with real keystrokes.
   - POST status for TC-036 and TC-048.
   - TC-033 tab B in the foreground.
+
+---
+
+## Re-checks requested by the peer review (2026-11-26, 14:29–14:31 CST)
+
+Same local instance (commit `efe2deb`), not reset: it held 32 bookings beforehand. The health check returned 200 on `/api/room/1–3` and `/api/report/room/1`. Cases that create bookings used new dates, because the original ones were already booked.
+
+| Case | What the reviewer asked for | Result |
+|---|---|---|
+| TC-045 | Check step 5 in the UI, not through the API | Home page, dates 17/05/2027–19/05/2027 typed, real click on Check Availability: **Single is listed** (Book-now links for rooms 1, 2 and 3). The **Pass is confirmed** through the UI. |
+| TC-009 | Type the phone with real keystrokes | All fields typed for real on `/reservation/1?checkin=2027-11-01&checkout=2027-11-02` (new dates). The input holds `+44 (20) 7946-0958`. "Booking Confirmed" 2027-11-01 - 2027-11-02, no red box. The **Pass is confirmed**. |
+| TC-036 | Capture the POST status | `POST /api/booking` → **409**, body `{"error":"Failed to create booking"}`, then the error page. **BUG-01 confirmed** on this path. |
+| TC-048 | Capture the POST status | `POST /api/booking` → **409**, with the same body, then the error page. **BUG-01 confirmed**. |
+| TC-033 | Tab B in the foreground; record B's Price Summary and POST | New dates, Suite 2027-11-08..10. Tab B was in the foreground (`visibilityState` "visible") with Price Summary £225 x 2 nights = £450, £25, £15, Total £490. Tab A was confirmed. In tab B, a real click on Reserve Now → `POST /api/booking` **409**, the same body, then the error page. 1 booking stored. **The Fail is confirmed.** |
+
+**What the re-checks add to the evidence:**
+- **The server rejects invalid date ranges** (same day, reversed) **and overlaps with the same response: 409 and `{"error":"Failed to create booking"}`.** So:
+  - BUG-02 is a **client-side** problem: the Price Summary shows negative or zero nights. No invalid booking is stored.
+  - Returning 409 (Conflict) for a validation error is questionable. 400 would fit better. This is a note for the PO and the developers, not a new candidate yet.
+  - BUG-01's cause is now specific. The frontend reads `.length` from the error response, but this body has a single `error` string instead of a list of errors. That matches the console TypeError seen in TC-031.
+- No verdict changed. The four provisional points from the review are now settled: TC-045, TC-009, TC-036/TC-048 linkage, and TC-033.
