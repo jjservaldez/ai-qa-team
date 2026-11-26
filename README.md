@@ -108,6 +108,7 @@ To re-run the suite, reset the data first by restarting `run_locally.sh` without
 
 ```
 .claude/agents/   peer-reviewer subagent
+.claude/skills/   env-health-check (pre-run check, with script) · run-prompt-version (the v1–v5 process)
 prompts/          Designer prompts v1–v6 and CHANGELOG
 runs/             raw generator output per version, and execution results
 reviewer/         reviewer inputs, unedited reviews, cross-version comparison
@@ -130,4 +131,4 @@ lessons-learned.md
 1. **Executor with Playwright MCP**, measured against a timed manual Smoke run.
 2. **Reporter with Jira.** Bug drafts go through the Reviewer, and I approve them before any ticket is created.
 3. **API tests with Postman and Newman in CI.**
-4. **Skills that package the process:** environment health check, running a prompt version, bug report template.
+4. **More skills.** The bug report template and the repo review checklist come next. Two already exist: [env-health-check](.claude/skills/env-health-check/SKILL.md) and [run-prompt-version](.claude/skills/run-prompt-version/SKILL.md).
