@@ -16,6 +16,7 @@ Run `bash .claude/skills/env-health-check/scripts/health_check.sh <base URL>`.
 - **NOT READY** → stop. Mark every planned case **Blocked**, with the failing endpoints and the time. Do not run anything.
 - **READY**, but the bookings are above the seeded count → stop and tell the QA lead that the data needs a reset. The suite's dates are fixed, so leftover bookings cause false Fails. Continue only if the QA lead says so, and write that decision down.
 - Copy the health-check line into the output header.
+- The header must also state the environment: **local copy of restful-booker-platform at commit `<commit>`, started with `run_locally.sh`**, and that **the results apply only to that local copy**. Take the commit from the task or `bugs/README.md`; if it isn't known, write "commit not known".
 
 ## 1. How to execute each case
 - **Follow the written steps in order.** If you must deviate (a step can't be done as written, or you use a different route), say so in the case's **Method** line.
@@ -27,8 +28,10 @@ Run `bash .claude/skills/env-health-check/scripts/health_check.sh <base URL>`.
 ## 2. Evidence for every oracle point
 For each check in the expected result, record what you observed and where it came from:
 - **Page text:** quote the exact text from the snapshot, for example the URL, the Price Summary lines, the alert bullets and the panel text. Don't write "as expected" without the values.
-- **Screenshot:** for every Fail and every Question, and for any visual claim (calendar, layout, spinner). Save it under `runs/evidence/<date>/<TC-ID>-<n>.png` and link it.
-- **Network and console:** on every submit, record the `POST /api/booking` status and the response body, and any console errors.
+- **Screenshot:** for every Fail and every Question, and for any visual claim (calendar, layout, spinner). **At most one screenshot per oracle point**, viewport only (no full-page captures), JPEG. Save it as `runs/evidence/<date>/<TC-ID>-<n>.jpg` and link it.
+- **Page snapshots:** save them as text files, not images, under `runs/evidence/<date>/<TC-ID>-<n>.yml`, and link every snapshot you cite.
+- **No video or traces.** Never record video or Playwright traces.
+- **Network and console:** on every form submit, record the **request body sent** and the **response status and body** of `POST /api/booking`, and any console errors.
 - **If a check can't be verified** with your access (for example, a stored value that only shows in admin), write **NOT VERIFIED**, give the reason, and leave the verdict on the checks you could verify.
 
 ## 3. Verdict rules (one set for the whole suite)
@@ -54,7 +57,8 @@ Use one header, then one block per case:
 
 ```markdown
 # Execution: <suite> · <date> · executor agent
-Health check <…> · Base URL <…> · App commit <if known> · Browser: Playwright MCP <version>, viewport <…>
+Health check <…> · Base URL <…> · Browser: Playwright MCP <version>, viewport <…>
+Environment: local copy of restful-booker-platform at commit `<commit>`, started with `run_locally.sh`. Results apply only to this local copy.
 Run window: <start>–<end> (<duration>)
 
 ## TC-xxx: <title>
