@@ -13,7 +13,7 @@ Acceptance criteria:
 - AC5: Lastname is required, 3–30 characters.
 - AC6: Email is required and must be a valid email format.
 - AC7: Phone is required, 11–21 characters.
-- AC8: If any field is invalid, the booking is not created and error messages are shown.
+- AC8: If any field is invalid, the booking is not created and an error message is shown for each invalid field. Each message identifies the field it refers to.
 - AC9: With valid data, a "Booking Confirmed" message is shown with the booked date range.
 - AC10: Dates that are already booked for a room cannot be booked again.
 - AC11: Check Out date must be after Check In date.

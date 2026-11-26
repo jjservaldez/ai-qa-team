@@ -141,6 +141,11 @@ Running log of lessons from building and evaluating the AI test-case agent. Each
 **Lesson:** Referencing another case saves space, but the steps it points to must be generic. Steps that carry data make the shortcut inherit the wrong input. This is the same family as L-11 and L-29: whatever the tester has to fill in on their own, two testers will fill in differently.
 **Applied:** Candidate rule for v6: a case may reuse another case's steps only if those steps contain no test data ("type the values from the Test Data column"); otherwise it writes its own steps.
 
+### L-33 · A "Question" verdict still gets a ticket
+**What happened:** On the local run, several behaviors had no AC behind them: digit-only names (BUG-04), a dead nav link (BUG-07), past dates (CAND-08), the check-out day shaded in the calendar (CAND-10) and padded names (CAND-11). The peer reviewer correctly turned two Fails into Questions, because no AC was broken. The QA lead's concern was that Question could read as "nothing to report", which leaves no QA evidence.
+**Lesson:** The verdict and the ticket answer different questions. The verdict asks whether the app meets the spec. The ticket says QA observed something. A behavior with no AC still gets a ticket, with status "Needs PO decision". The PO's answer is written into the ticket, and that answer is the evidence. A clarification QA makes itself, like AC8 here, is also a question for the PO until it is confirmed.
+**Applied:** Added a PO decision log (PO-1 to PO-6) to the bug reports. TC-017 and TC-052 are now Question, linked to their tickets. When the PO decides, the related cases become Fail, or their oracles are updated.
+
 ## Running the tests
 
 ### L-24 · Check that the environment is healthy before starting a run
