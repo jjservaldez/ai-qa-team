@@ -1,25 +1,25 @@
 TC ID,Title,Category,AC ID,Preconditions,Steps,Test Data,Expected Result,Priority,Suite,Notes,Source,Change from v3,Related bug
-TC-001,Book a Single room end to end with dates chosen on the home page,Happy path,"AC1, AC2, AC3, AC9",Browser open. Single room free for 14/12/2026–16/12/2026.,"1. Open https://automationintesting.online.
+TC-001,Book a Single room end to end with dates chosen on the home page,Happy path,"AC1, AC2, AC3, AC9",Browser open. Single room free for 14/12/2027–16/12/2027.,"1. Open https://automationintesting.online.
 2. In ""Check Availability & Book Your Stay"", set Check In and Check Out to the test data dates.
 3. Click ""Check Availability"".
 4. In ""Our Rooms"", on the Single card click ""Book now"".
 5. Check the address bar URL.
-6. In the ""Book This Room"" panel, click ""Next"" until December 2026 and check the calendar.
+6. In the ""Book This Room"" panel, click ""Next"" until December 2027 and check the calendar.
 7. Check the Price Summary.
 8. Click ""Reserve Now"".
 9. Type the contact data into Firstname, Lastname, Email, Phone.
 10. Click ""Reserve Now"" again.
-11. Check the ""Book This Room"" panel.","Check In: 14/12/2026
-Check Out: 16/12/2026
+11. Check the ""Book This Room"" panel.","Check In: 14/12/2027
+Check Out: 16/12/2027
 Firstname: Maria
 Lastname: Gonzalez
 Email: maria.gonzalez@example.com
 Phone: +523312345678","Step 4: ""Our Rooms"" lists the Single card.
-Step 5: URL is https://automationintesting.online/reservation/1?checkin=2026-12-14&checkout=2026-12-16.
-Step 6: December calendar shows the ""Selected"" bar on 14 and 15 December (not on other days).
+Step 5: URL is https://automationintesting.online/reservation/1?checkin=2027-12-14&checkout=2027-12-16.
+Step 6: December 2027 calendar shows the ""Selected"" bar starting on 14 December and covering 14 and 15 December. Whether the check-out day (16 December) is also highlighted is not asserted; see PO-4.
 Step 7: Price Summary shows £100 × 2 nights = £200, Cleaning fee £25, Service fee £15, Total £240.
 Step 8: Form with Firstname, Lastname, Email, Phone and a ""Cancel"" button appears.
-Step 11: Panel is replaced by ""Booking Confirmed"", the text ""Your booking has been confirmed for the following dates:"" and 2026-12-14 - 2026-12-16, plus a ""Return home"" button. No red error box, no error page.",High,Smoke,"Assumption: the range end shown is the check-out date. Shared demo app: if the dates are already taken, shift both dates +7 days and recompute expected values.",v3 TC-001,Step 6 no longer depends on the run date.,
+Step 11: Panel is replaced by ""Booking Confirmed"", the text ""Your booking has been confirmed for the following dates:"" and 2027-12-14 - 2027-12-16, plus a ""Return home"" link. No red error box, no error page.",High,Smoke,"Assumption: the range end shown is the check-out date. Shared demo app: if the dates are already taken, shift both dates +7 days and recompute expected values.",v3 TC-001,Step 6 no longer depends on the run date.,
 TC-002,Book a Double room for today using the prefilled home page dates,Happy path,"AC1, AC2, AC9",Browser open. Run on the execution date (call it D). Double room free for the night of D.,"1. Open https://automationintesting.online.
 2. In ""Check Availability & Book Your Stay"", check the prefilled Check In and Check Out values without changing them.
 3. In ""Our Rooms"", on the Double card click ""Book now"".
@@ -36,19 +36,19 @@ Phone: +523312345678","Step 2: Check In = today, Check Out = tomorrow.
 Step 4: URL is /reservation/2?checkin=<D as YYYY-MM-DD>&checkout=<D+1 as YYYY-MM-DD>.
 Step 5: Calendar opens on the current month with today highlighted and a ""Sel…"" bar on today.
 Step 6: £150 × 1 night = £150, Cleaning fee £25, Service fee £15, Total £190.
-Step 8: ""Booking Confirmed"" with <D> - <D+1> and a ""Return home"" button.",High,Full,"If run on another day, use that day and the next day and adjust the URL and range. The room policy says check-in 3:00–8:00 PM; if run after 8:00 PM, record what the app does and raise with the PO (no rule stated for same-day bookings).",v3 TC-002,No change,
+Step 8: ""Booking Confirmed"" with <D> - <D+1> and a ""Return home"" link.",High,Full,"If run on another day, use that day and the next day and adjust the URL and range. The room policy says check-in 3:00–8:00 PM; if run after 8:00 PM, record what the app does and raise with the PO (no rule stated for same-day bookings).",v3 TC-002,No change,
 TC-003,Price Summary is correct for a 3-night Suite stay,Happy path,"AC1, AC2",Browser open.,"1. Open https://automationintesting.online.
 2. Set Check In and Check Out to the test data dates.
 3. Click ""Check Availability"".
 4. On the Suite card click ""Book now"".
-5. Check the URL and the Price Summary in the ""Book This Room"" panel.","Check In: 07/12/2026
-Check Out: 10/12/2026","URL is /reservation/3?checkin=2026-12-07&checkout=2026-12-10.
+5. Check the URL and the Price Summary in the ""Book This Room"" panel.","Check In: 07/12/2027
+Check Out: 10/12/2027","URL is /reservation/3?checkin=2027-12-07&checkout=2027-12-10.
 Price Summary: £225 × 3 nights = £675, Cleaning fee £25, Service fee £15, Total £715. Night count is exactly 3 (not 4).",High,Smoke,No booking is submitted.,v3 TC-003,No change,
-TC-004,"First click on ""Reserve Now"" shows the form and ""Cancel"" without booking",Happy path,AC3,Open in the address bar: https://automationintesting.online/reservation/1?checkin=2026-12-21&checkout=2026-12-23,"1. Check the ""Book This Room"" panel before clicking.
+TC-004,"First click on ""Reserve Now"" shows the form and ""Cancel"" without booking",Happy path,AC3,Open in the address bar: https://automationintesting.online/reservation/1?checkin=2027-12-21&checkout=2027-12-23,"1. Check the ""Book This Room"" panel before clicking.
 2. Click ""Reserve Now"" once.
 3. Check the panel.",None,"Step 1: No form fields are visible; ""Reserve Now"" is visible.
 Step 3: Empty Firstname, Lastname, Email and Phone fields and a ""Cancel"" button appear in the panel; ""Reserve Now"" is still visible. No ""Booking Confirmed"", no red error box. Price Summary still shows £100 × 2 nights = £200, £25, £15, Total £240.",High,Smoke,,v3 TC-004,No change,
-TC-005,"""Cancel"" closes the form without booking",UX,AC3,Open in the address bar: https://automationintesting.online/reservation/1?checkin=2026-11-26&checkout=2026-11-28,"1. Click ""Reserve Now"".
+TC-005,"""Cancel"" closes the form without booking",UX,AC3,Run on the execution date (call it D). Single room free for the nights of D and D+1. Open in the address bar: https://automationintesting.online/reservation/1?checkin=<D as YYYY-MM-DD>&checkout=<D+2 as YYYY-MM-DD>,"1. Click ""Reserve Now"".
 2. Type the Firstname value.
 3. Click ""Cancel"".
 4. Check the panel.
@@ -94,34 +94,34 @@ TC-010,Valid email with plus sign and multi-level domain is accepted,Edge/Bounda
 Lastname: Gonzalez
 Email: maria.gonzalez+trip@mail.example.co.uk
 Phone: +523312345678","""Booking Confirmed"" with 2027-01-08 - 2027-01-09. No Email error.",Low,Full,,v3 TC-010,No change,
-TC-011,Booking across a month boundary,Edge/Boundary,"AC1, AC2, AC9",Browser open. Double room free for 30/11/2026–02/12/2026.,"1. Open https://automationintesting.online.
+TC-011,Booking across a month boundary,Edge/Boundary,"AC1, AC2, AC9",Browser open. Double room free for 30/11/2027–02/12/2027.,"1. Open https://automationintesting.online.
 2. Set Check In and Check Out to the test data dates; click ""Check Availability"".
 3. On the Double card click ""Book now"".
 4. Check the URL.
-5. In the calendar click ""Next"" until November 2026, check it, then click ""Next"" once more and check December 2026.
+5. In the calendar click ""Next"" until November 2027, check it, then click ""Next"" once more and check December 2027.
 6. Check the Price Summary.
 7. Click ""Reserve Now"", type the contact data, click ""Reserve Now"".
-8. Check the panel.","Check In: 30/11/2026
-Check Out: 02/12/2026
+8. Check the panel.","Check In: 30/11/2027
+Check Out: 02/12/2027
 Firstname: Maria
 Lastname: Gonzalez
 Email: maria.gonzalez@example.com
-Phone: +523312345678","Step 4: /reservation/2?checkin=2026-11-30&checkout=2026-12-02.
-Step 5: ""Selected"" on 30 November and on 1 December only.
+Phone: +523312345678","Step 4: /reservation/2?checkin=2027-11-30&checkout=2027-12-02.
+Step 5: ""Selected"" bar starting on 30 November and covering 30 November and 1 December. Whether the check-out day (2 December) is also highlighted is not asserted; see PO-4.
 Step 6: £150 × 2 nights = £300, £25, £15, Total £340.
-Step 8: ""Booking Confirmed"" with 2026-11-30 - 2026-12-02.",High,Full,,v3 TC-011,No change,
-TC-012,Booking across a year boundary,Edge/Boundary,"AC1, AC2, AC9",Browser open. Single room free for 30/12/2026–02/01/2027.,"1. Open https://automationintesting.online.
+Step 8: ""Booking Confirmed"" with 2027-11-30 - 2027-12-02.",High,Full,,v3 TC-011,No change,
+TC-012,Booking across a year boundary,Edge/Boundary,"AC1, AC2, AC9",Browser open. Single room free for 30/12/2027–02/01/2028.,"1. Open https://automationintesting.online.
 2. Set Check In and Check Out to the test data dates; click ""Check Availability"".
 3. On the Single card click ""Book now"".
 4. Check the URL and the Price Summary.
 5. Click ""Reserve Now"", type the contact data, click ""Reserve Now"".
-6. Check the panel.","Check In: 30/12/2026
-Check Out: 02/01/2027
+6. Check the panel.","Check In: 30/12/2027
+Check Out: 02/01/2028
 Firstname: Maria
 Lastname: Gonzalez
 Email: maria.gonzalez@example.com
-Phone: +523312345678","Step 4: /reservation/1?checkin=2026-12-30&checkout=2027-01-02; £100 × 3 nights = £300, £25, £15, Total £340.
-Step 6: ""Booking Confirmed"" with 2026-12-30 - 2027-01-02 (year 2027 on the end date, not 2026).",High,Full,,v3 TC-012,No change,
+Phone: +523312345678","Step 4: /reservation/1?checkin=2027-12-30&checkout=2028-01-02; £100 × 3 nights = £300, £25, £15, Total £340.
+Step 6: ""Booking Confirmed"" with 2027-12-30 - 2028-01-02 (year 2028 on the end date, not 2027).",High,Full,,v3 TC-012,No change,
 TC-013,Booking about one year in the future,Edge/Boundary,"AC1, AC2, AC9",Browser open. Suite free for 11/10/2027–13/10/2027.,"1. Open https://automationintesting.online.
 2. Set the test data dates; click ""Check Availability"".
 3. On the Suite card click ""Book now"".
@@ -266,7 +266,7 @@ TC-031,Booking the exact same dates again is rejected,Negative,"AC10, AC8",A Sin
 Lastname: Ramirez
 Email: lucia.ramirez@example.com
 Phone: +523398765432","Step 3: The Single card is not listed.
-Step 6: No ""Booking Confirmed"". A clear message says the dates are not available. No error page; form still usable; Price Summary £200, £25, £15, Total £240.",High,Regression,"Booked dates are not marked on the calendar (known UI behavior), so the error message is the only signal. Exact text assumed.",v3 TC-031,No change,BUG-01
+Step 6: No ""Booking Confirmed"". A clear message says the dates are not available. No error page; form still usable; Price Summary £200, £25, £15, Total £240.",High,Smoke,"Booked dates are not marked on the calendar (known UI behavior), so the error message is the only signal. Exact text assumed.",v3 TC-031,No change,BUG-01
 TC-032,Partially overlapping dates are rejected,Negative,"AC10, AC8",A Single booking exists for 2027-02-15 to 2027-02-17.,"1. Open in the address bar: https://automationintesting.online/reservation/1?checkin=2027-02-16&checkout=2027-02-18.
 2. Click ""Reserve Now"", type the test data, click ""Reserve Now"".
 3. Check the panel.","Firstname: Lucia
@@ -293,7 +293,7 @@ TC-035,Check Out before Check In on the home page,Negative,AC11,Browser open.,"1
 3. Click ""Check Availability"".
 4. Check the availability section and ""Our Rooms"".
 5. If a ""Book now"" button is shown, click it on the Single card and check the URL and Price Summary.","Check In: 15/03/2027
-Check Out: 13/03/2027","A clear message near the date fields says Check Out must be after Check In, or the date picker prevents the selection. No error page. If a room page opens: Price Summary does not show negative nights or negative amounts, and a booking with valid data must not reach ""Booking Confirmed"".",High,Regression,Message text and location not specified (assumption).,v3 TC-035,No change,"BUG-01, BUG-02"
+Check Out: 13/03/2027","A clear message near the date fields says Check Out must be after Check In, or the date picker prevents the selection. No error page. If a room page opens: Price Summary does not show negative nights or negative amounts, and a booking with valid data must not reach ""Booking Confirmed"".",High,Smoke,Message text and location not specified (assumption).,v3 TC-035,No change,"BUG-01, BUG-02"
 TC-036,Same-day Check In and Check Out (0 nights),Edge/Boundary,AC11,Browser open.,"1. Open https://automationintesting.online.
 2. Set the test data dates; click ""Check Availability"".
 3. Check for a message.
@@ -317,7 +317,7 @@ Phone: +523312345678","No ""Booking Confirmed"" for past dates; a clear message 
 TC-038,"""View Details"" in Similar Rooms keeps the selected dates",Happy path,"AC12, AC1, AC2",Browser open.,"1. Open https://automationintesting.online/reservation/1?checkin=2027-04-05&checkout=2027-04-07.
 2. Scroll to ""Similar Rooms You Might Like"".
 3. On the Double card click ""View Details"".
-4. Check the URL, room name, calendar (click ""Next"" to April 2027) and Price Summary.",None,"The Double room page opens. Either: URL is /reservation/2?checkin=2027-04-05&checkout=2027-04-07, ""Selected"" on 5 and 6 April 2027, Price Summary £150 × 2 nights = £300, £25, £15, Total £340; or a clear prompt asks to select dates. Fail if other dates (for example today/tomorrow) are shown or booked without the user selecting them.",High,Regression,,v3 TC-038,No change,BUG-03
+4. Check the URL, room name, calendar (click ""Next"" to April 2027) and Price Summary.",None,"The Double room page opens. Either: URL is /reservation/2?checkin=2027-04-05&checkout=2027-04-07, ""Selected"" bar starting on 5 April and covering 5 and 6 April 2027 (whether the check-out day, 7 April, is also highlighted is not asserted; see PO-4), Price Summary £150 × 2 nights = £300, £25, £15, Total £340; or a clear prompt asks to select dates. Fail if other dates (for example today/tomorrow) are shown or booked without the user selecting them.",High,Smoke,,v3 TC-038,No change,BUG-03
 TC-039,Room URL without date parameters,Edge/Boundary,AC12,Browser open.,"1. Open in the address bar: https://automationintesting.online/reservation/1
 2. Check the panel and Price Summary.
 3. Click ""Reserve Now"", type the test data, click ""Reserve Now"".
@@ -344,7 +344,7 @@ Email: maria.gonzalez@example.com
 Phone: +523312345678","Step 2: ""Booking Confirmed"" with 2027-04-19 - 2027-04-21.
 Step 4: Home page loads normally; no resubmission prompt, no error page.
 Step 5: Single is not listed for 19/04/2027–21/04/2027 (booking persisted).",Medium,Full,,v3 TC-042,No change,
-TC-043,"""Return home"" button after confirmation",UX,AC9,Single free for 2027-04-26 to 2027-04-28.,"1. Open https://automationintesting.online/reservation/1?checkin=2027-04-26&checkout=2027-04-28.
+TC-043,"""Return home"" link after confirmation",UX,AC9,Single free for 2027-04-26 to 2027-04-28.,"1. Open https://automationintesting.online/reservation/1?checkin=2027-04-26&checkout=2027-04-28.
 2. Click ""Reserve Now"", type the test data, click ""Reserve Now"".
 3. Click ""Return home"".
 4. Check the URL and page.","Firstname: Maria

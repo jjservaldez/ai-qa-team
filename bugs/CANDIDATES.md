@@ -1,4 +1,4 @@
-# Candidates (CAND-08 to CAND-15)
+# Candidates (CAND-08 to CAND-16)
 
 A candidate becomes a bug once it is reproduced and the expected behavior is backed by an AC or a PO decision. Every entry says which environment it was seen in.
 
@@ -15,6 +15,7 @@ A candidate becomes a bug once it is reproduced and the expected behavior is bac
 | CAND-13 | Medium | Invalid date params: the Price Summary shows £NaN | TC-040 | Local 11-25 | Candidate · linked to BUG-02 |
 | CAND-14 | Medium | Room that doesn't exist: API 500 and an error page (should be 404) | TC-041 | Local 11-25 | Candidate · verify on demo |
 | CAND-15 | High | The submit button isn't disabled after the first click: double POST, and an error shown after a booking that worked | TC-034 | Local 11-25 | Candidate |
+| CAND-16 |  | The booking summary says "1 nights" (wrong plural) for a 1-night stay | TC-006 | Local 11-26 | Candidate |
 
 ---
 
@@ -62,3 +63,7 @@ A candidate becomes a bug once it is reproduced and the expected behavior is bac
   - The second returns **409**, which triggers BUG-01's crash.
 - Only one booking is stored, but the user sees "This page couldn't load" after a booking that succeeded, and may book again.
 - **Separate from BUG-01:** even with good error handling, the second POST shouldn't be sent.
+
+## CAND-16 · The booking summary says "1 nights"
+- **Local, 11-26 (TC-006):** for a 1-night stay (2027-01-11 to 2027-01-12, room 1), the Price Summary reads "£100 x 1 nights".
+- The amounts are correct (£100, £25, £15, Total £140). Only the plural is wrong; it should read "1 night".

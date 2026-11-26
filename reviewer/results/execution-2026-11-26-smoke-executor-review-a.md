@@ -1,0 +1,58 @@
+# Review: Smoke execution 2026-11-26 (executor agent)
+
+Inputs read:
+- `/Users/jesusserna/Projects/ai-qa-team/runs/execution-2026-11-26-smoke-executor.md`
+- `/Users/jesusserna/Projects/ai-qa-team/reviewer/inputs/story-and-acs.md`
+- `/Users/jesusserna/Projects/ai-qa-team/test-suite/execution-copy.csv` (Smoke rows: TC-001, 003, 004, 006, 008, 019, 029, 043)
+- `/Users/jesusserna/Projects/ai-qa-team/runs/evidence/2026-11-26/` TC-001-1.png, TC-001-2.png, TC-019-1.png, TC-029-1.png, TC-043-1.png
+
+No UI map was provided, so the ACs and the case text are the only sources about the application. The review covers the run results, not the case design. I applied the agent checks to the run like this:
+- **V (verdict vs. oracle):** does the recorded result follow the written expected result?
+- **E (evidence):** does the evidence support the claim?
+- **M (method/environment):** was the case run as written, and are the results valid for the target?
+- **T (traceability):** do the ticket and AC links match the result?
+
+Where the run shows a flaw in the case itself, I use the original numbers (3 = weak oracle, 4 = unsupported UI claim).
+
+## 1. Comments table
+
+| Case | Check # | Severity | Comment | Reason / evidence | Suggested fix | Confidence |
+|---|---|---|---|---|---|---|
+| TC-001 | V | major | The verdict "Question" goes against the written oracle. Step 6 says the "Selected" bar is on "14 and 15 December (**not on other days**)". The run says, and TC-001-1.png shows, that the bar covers 14, 15 and 16. Read literally, that is Fail. The executor downgraded it because "No AC says whether the check-out day is shaded". That is a reason to question the case, not to change the result of an explicit oracle. The case's only stated assumption (Notes) is about the step 11 range end, not step 6. AC1 ("are the dates that get booked") is also arguably in scope, since shading the 16th suggests the night of the 16th is taken. The executor also chose "main checks (4, 5, 7, 8, 11)", but the case doesn't rank its steps. | csv TC-001 Expected "Step 6"; run lines 23, 27, 29; TC-001-1.png | QA lead decides one of two things. (a) Record Fail on step 6 and link CAND-10. (b) Keep Question, but say in the run that the oracle was overridden, and send the case for an oracle change (mark step 6 as an assumption pending PO-4). Either way, the run should not report "Matches" for the case as a whole. | medium |
+| TC-001 | E | major | The run did not collect the evidence that would settle the Question. It has read-only API access. A query such as `/api/room?checkin=2026-12-16&checkout=2026-12-17` would show whether room 1 is actually blocked for the night of the 16th (a real AC1/AC10 defect) or only drawn that way (cosmetic). The Data check only queried the exact booked range (line 133). | run lines 7, 127-134 (the API was used read-only for other ranges); AC1, AC10 | Run that read-only query, or note it as an open item for CAND-10/PO-4. | medium |
+| TC-001 | E | minor | TC-001-1.png is cropped to the calendar grid. It does not show the "December 2026" toolbar label that the run cites in step 6. The weekday layout fits December 2026 (1 Dec = Tuesday), but the month label is not in the evidence. | TC-001-1.png; run line 23 | Include the toolbar in the screenshot crop. | high |
+| TC-001 | E | minor | TC-001-2.png does not show the "Booking Confirmed" heading. It starts at "Your booking has been confirmed…". The heading is the main element of the step 11 oracle and of AC9. | TC-001-2.png; run lines 26, 28 | Capture the whole panel, heading included. | high |
+| TC-001, TC-043 | 4 | minor | The oracle (TC-001 step 11) and the TC-043 title call "Return home" a **button**. The run found an `<a href="/">` link. No source says it is a button. The executor handled it correctly as wording only. This is feedback for the case. | run lines 32, 116; csv TC-001, TC-043 | Send to the suite owner: change "button" to "link" in the TC-001 oracle and the TC-043 title. | high |
+| TC-003, TC-004 | E | minor | The evidence for these Pass results is Playwright snapshot files (`page-2026-11-26T21-18-34-124Z.yml`, `…21-18-51-317Z.yml`, `…21-18-59-974Z.yml`) given by name only. The run gives no path, they are not in `runs/evidence/2026-11-26/`, and there is no screenshot. A reader cannot open the evidence for the price values (TC-003) or for the before/after form state (TC-004). | run lines 40, 52 | Save the snapshots or screenshots under `runs/evidence/2026-11-26/` and link them like the others. | high |
+| TC-004 | M | minor | The room page took about 9 s to render on localhost. The run logs this only as a deviation. TC-043-1.png shows a Next.js dev overlay ("1 Insight"), and line 112 mentions an HMR log. Together these suggest the app ran as a dev server, which compiles pages on demand. That probably explains the delay, but it also means the run's timing and console results are not representative of a production build. Nobody looked at the "1 Insight" indicator. | run lines 49, 112, 142; TC-043-1.png (lower-left badge) | In the run header, record that the target was a dev-mode server. Look at or capture the "1 Insight" content once. | medium |
+| TC-006 | V / T | minor | The Step 1 oracle says "£100 × 1 night". The app shows "£100 x 1 nights". The executor kept Pass because the values match. That is reasonable, but the run then says "NEW-CANDIDATEs: None", although this difference is user-visible and no existing ticket covers it. | run lines 61, 67, 136-137; csv TC-006 Expected | Log the wrong plural as a cosmetic candidate, or state explicitly that it is accepted. Don't report "None". | medium |
+| TC-006, TC-043 | E | minor | Only the POST **response** is recorded. It does not echo email or phone. TC-006 is the boundary case for minimum lengths (Email `a@b.co`, Phone 11 chars), so without the request body nothing shows that the boundary values were actually sent as typed (for example, not trimmed or reformatted by the client). TC-001 and TC-008 do record request bodies. | run lines 63, 112 vs 28, 75; csv TC-006 Test Data | Record the request body for every submitting case. | medium |
+| TC-008 | 3 | minor | The run confirms that the confirmation panel never shows the guest's name, only dates and "Return home" (TC-001-2.png). So the oracle's "no garbled characters" check can't fail on the page after submit. A realistic defect (the name stored or encoded wrongly) would still Pass on the UI. The executor made up for it with the POST request/response echo, which is the only real check here. | run lines 74-75, 79; csv TC-008 Expected and Notes | Send to the suite owner: make the request/response name echo, or a name shown before submit, the oracle. Otherwise state that the UI check can't detect encoding defects. | medium |
+| TC-019 | V | none (agree) | Fail is correct. TC-019-1.png shows one bullet, "size must be between 3 and 18", with no field name. The oracle requires the field to be named, the AC8 link is right, and BUG-05 matches the case's Related bug column. | TC-019-1.png; csv TC-019 | none | high |
+| TC-029 | V | none (agree) | Fail is correct. TC-029-1.png shows 7 bullets: only 2 name a field, and none names Email or Phone. The oracle explicitly fails "must not be empty". | TC-029-1.png; csv TC-029 Expected | none | high |
+| TC-029 | T | minor | The run doesn't note that the 7 bullets for 4 fields include duplicates: Firstname has both "should not be blank" and "size…", and so does Lastname. AC8 asks for "an error message … for each invalid field". The oracle doesn't forbid extra bullets, so the verdict doesn't change, but this is useful input for BUG-05/PO-6. | TC-029-1.png; AC8 | Add a note to BUG-05: duplicate per-field messages, and an order that may not be deterministic. | low |
+| TC-043 | E | minor | The run says the home page shows "Our Rooms (Single, Double, Suite)" after "Return home". TC-043-1.png ends at the date fields, with the "Check Availability" button cut off and "Our Rooms" not visible. This part of the step 4 oracle rests on an unlinked snapshot or on the executor's statement. | TC-043-1.png; run line 111 | Add a full-page screenshot or link the snapshot. | high |
+| Run header | M | minor | The suite targets `https://automationintesting.online`. The run replaced the host with `http://localhost:3003` (line 5), and the app version comes from a repository note rather than from the app (line 2). The results apply to that local copy only. The run says so, but the Totals and verdicts don't carry that scope. | run lines 2, 5; story-and-acs.md line 3 | Put the scope next to the Totals ("local copy efe2deb / v2.2"). | medium |
+
+## 2. Suite-level findings (run and Smoke scope)
+
+- **Smoke covers no case for AC10, AC11 or AC12.** Applies. The Smoke rows trace to AC1-AC9 only, while the open bugs BUG-01 to BUG-03 sit on AC10-AC12 (csv TC-031 to TC-038). A Smoke "5 Pass" result says nothing about double booking or date validity. This is a suite-scope point for the QA lead; it is not a run defect.
+- **Data reset between runs.** Applies. The run leaves bookings 4-7 in place (line 134). The fixed dates in TC-001, 006, 008 and 043 will be "already booked" on a rerun without a reset, and TC-001's note says to shift dates by +7 days. The executor flagged this correctly.
+- **Date-dependent data.** Applies. The prefilled home dates are 26/11/2026-27/11/2026 (TC-043-1.png). No Smoke case relies on them, and all Smoke dates are in the future relative to the run date. The run is valid for today; the TC-001 dates (Dec 2026) will expire within weeks.
+- **Time zone.** Applies weakly. The run uses CST, and the snapshot names use UTC (21:18Z = 15:18 CST, consistent). Booked dates were stored as sent (`2026-12-14`), so there is no sign of a time-zone shift. Nothing to act on.
+- **Backend errors and slow network.** Applies, but not exercised. Only 400 validation responses were seen, and no case covers a 5xx or a timeout. Out of Smoke scope, but no case anywhere in the suite covers it.
+- **Concurrency, refresh and back.** Not in Smoke scope. Covered by Full and Regression (TC-033, 042, 044, 045).
+- **Accents and apostrophes.** Applies, covered by TC-008 (request and response echo correct). Emoji and very long values are not in Smoke (TC-016, TC-007 are Full).
+- **Totals and data consistency.** Checked. 4 confirmations = 4 new bookings (ids 4-7) = 4 new ranges in `/api/report`. The rejected and non-submitting cases left the rooms available. The times in the snapshot names fall inside each case's recorded window. No inconsistency found.
+
+## 3. Summary
+
+- **Cases reviewed:** 8 (TC-001, 003, 004, 006, 008, 019, 029, 043). Verdicts I agree with: TC-003, 004, 006, 008, 019, 029, 043. Verdict disputed: TC-001 (Question vs. the literal oracle, which gives Fail).
+- **Comments by check (actionable rows only, two "agree" rows excluded):** V 2 (TC-001, TC-006), E 6 (TC-001 ×3, TC-003/004, TC-006/043, TC-043), M 2, T 1, 3 (weak oracle) 1, 4 (unsupported UI claim) 1. Total 13.
+- **By severity:** blocker 0, major 2 (both TC-001), minor 11.
+- **What I could not check:**
+  - The Playwright snapshot `.yml` files, the network logs and the console output: they are not in the inputs, so the TC-003 and TC-004 results and the "Our Rooms" claim in TC-043 rest on the executor's statements.
+  - Whether CAND-10, PO-4, PO-6 and BUG-05 exist and what they say: ticket files are not in the inputs.
+  - Whether room 1 is really blocked for the night of 2026-12-16 (needs the API or app).
+  - The meaning of the Next.js "1 Insight" indicator (needs the running app).
+  - There is no UI map, so the labels quoted in the run were checked only against the case text and screenshots.
