@@ -16,7 +16,8 @@ Run `bash .claude/skills/env-health-check/scripts/health_check.sh <base URL>`.
 - **NOT READY** → stop. Mark every planned case **Blocked**, with the failing endpoints and the time. Do not run anything.
 - **READY**, but the bookings are above the seeded count → stop and tell the QA lead that the data needs a reset. The suite's dates are fixed, so leftover bookings cause false Fails. Continue only if the QA lead says so, and write that decision down.
 - Copy the health-check line into the output header.
-- The header must also state the environment: **local copy of restful-booker-platform at commit `<commit>`, started with `run_locally.sh`**, and that **the results apply only to that local copy**. Take the commit from the task or `bugs/README.md`; if it isn't known, write "commit not known".
+- Read the app commit with `git -C ~/Projects/restful-booker-platform rev-parse HEAD` (read-only). Use that value in the header; never take it from another document. If the command fails, write "commit not known" and the error.
+- The header must also state the environment: **local copy of restful-booker-platform at commit `<commit>`, started with `run_locally.sh`, running as a development build**, and that **the results apply only to that local copy**.
 
 ## 1. How to execute each case
 - **Follow the written steps in order.** If you must deviate (a step can't be done as written, or you use a different route), say so in the case's **Method** line.
@@ -24,14 +25,17 @@ Run `bash .claude/skills/env-health-check/scripts/health_check.sh <base URL>`.
 - **Type the input under test with real keystrokes,** character by character: accents, emoji, spaces, script or SQL text, phone formats (L-18, peer review 2026-11-25).
 - **Wait correctly.** A loading state still there after **more than 30 s from page load** is "endless loading". Record when the page was loaded.
 - **Never** use admin credentials, change data except through the case's steps, or touch anything outside the app under test.
+- **Never delete or overwrite files.** If a file is written by mistake, leave it where it is, log it in the run's Deviations list, and leave it for the QA lead. If you need a second capture, save it under the next number.
 
 ## 2. Evidence for every oracle point
 For each check in the expected result, record what you observed and where it came from:
 - **Page text:** quote the exact text from the snapshot, for example the URL, the Price Summary lines, the alert bullets and the panel text. Don't write "as expected" without the values.
-- **Screenshot:** for every Fail and every Question, and for any visual claim (calendar, layout, spinner). **At most one screenshot per oracle point**, viewport only (no full-page captures), JPEG. Save it as `runs/evidence/<date>/<TC-ID>-<n>.jpg` and link it.
+- **Page URL:** record the full page URL at every step that checks one, in the case's Actual line and in the snapshot file for that step.
+- **Empty root `alert` node:** an empty `alert` node at the page root is the Next.js route announcer, not an error box. Ignore it unless it contains text; if it does, record the text.
+- **Screenshot:** for every Fail and every Question, and for any visual claim (calendar, layout, spinner). **At most one screenshot per oracle point**, viewport only (no full-page captures), JPEG. Save it as `runs/evidence/<date>/<TC-ID>-<n>.jpg` and link it. A screenshot must show what the user sees: if a development error overlay appears, close it first, then take the screenshot, and record in the case that the overlay appeared (with its error text).
 - **Page snapshots:** save them as text files, not images, under `runs/evidence/<date>/<TC-ID>-<n>.yml`, and link every snapshot you cite.
 - **No video or traces.** Never record video or Playwright traces.
-- **Network and console:** on every form submit, record the **request body sent** and the **response status and body** of `POST /api/booking`, and any console errors.
+- **Network and console:** on every form submit, record the **request body sent** and the **response status and body** of `POST /api/booking`, and any console errors. Save each case's network requests (status and body) and console output as one small text file, `runs/evidence/<date>/<TC-ID>-network.txt`, and link it.
 - **If a check can't be verified** with your access (for example, a stored value that only shows in admin), write **NOT VERIFIED**, give the reason, and leave the verdict on the checks you could verify.
 
 ## 3. Verdict rules (one set for the whole suite)
@@ -58,7 +62,7 @@ Use one header, then one block per case:
 ```markdown
 # Execution: <suite> · <date> · executor agent
 Health check <…> · Base URL <…> · Browser: Playwright MCP <version>, viewport <…>
-Environment: local copy of restful-booker-platform at commit `<commit>`, started with `run_locally.sh`. Results apply only to this local copy.
+Environment: local copy of restful-booker-platform at commit `<commit from git rev-parse HEAD>`, started with `run_locally.sh`, development build. Results apply only to this local copy.
 Run window: <start>–<end> (<duration>)
 
 ## TC-xxx: <title>

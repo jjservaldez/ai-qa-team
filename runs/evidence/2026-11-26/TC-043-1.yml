@@ -1,0 +1,193 @@
+- generic [active] [ref=f30e1]:
+  - generic [ref=f30e3]:
+    - navigation [ref=f30e25]:
+      - generic [ref=f30e26]:
+        - link "Shady Meadows B&B" [ref=f30e27] [cursor=pointer]:
+          - /url: /
+        - list [ref=f30e30]:
+          - listitem [ref=f30e31]:
+            - link "Rooms" [ref=f30e32] [cursor=pointer]:
+              - /url: /#rooms
+          - listitem [ref=f30e33]:
+            - link "Booking" [ref=f30e34] [cursor=pointer]:
+              - /url: /#booking
+          - listitem [ref=f30e35]:
+            - link "Amenities" [ref=f30e36] [cursor=pointer]:
+              - /url: /#amenities
+          - listitem [ref=f30e37]:
+            - link "Location" [ref=f30e38] [cursor=pointer]:
+              - /url: /#location
+          - listitem [ref=f30e39]:
+            - link "Contact" [ref=f30e40] [cursor=pointer]:
+              - /url: /#contact
+          - listitem [ref=f30e41]:
+            - link "Admin" [ref=f30e42] [cursor=pointer]:
+              - /url: /admin
+    - navigation "breadcrumb" [ref=f30e45]:
+      - list [ref=f30e46]:
+        - listitem [ref=f30e47]:
+          - link "Home" [ref=f30e48] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f30e49]:
+          - text: /
+          - link "Rooms" [ref=f30e50] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f30e51]: / Single Room
+    - generic [ref=f30e53]:
+      - generic [ref=f30e54]:
+        - generic [ref=f30e55]:
+          - heading "Single Room" [level=1] [ref=f30e56]
+          - generic [ref=f30e57]:
+            - generic [ref=f30e58]: Accessible
+            - generic [ref=f30e60]:
+              - generic [ref=f30e61]: 
+              - text: Max 2 Guests
+        - img "Room Image" [ref=f30e65]
+        - generic [ref=f30e66]:
+          - heading "Room Description" [level=2] [ref=f30e67]
+          - paragraph [ref=f30e68]: Aenean porttitor mauris sit amet lacinia molestie. In posuere accumsan aliquet. Maecenas sit amet nisl massa. Interdum et malesuada fames ac ante.
+        - generic [ref=f30e69]:
+          - heading "Room Features" [level=2] [ref=f30e70]
+          - generic [ref=f30e71]:
+            - generic [ref=f30e73]:
+              - generic [ref=f30e74]: 
+              - generic [ref=f30e75]: TV
+            - generic [ref=f30e77]:
+              - generic [ref=f30e78]: 
+              - generic [ref=f30e79]: WiFi
+            - generic [ref=f30e81]:
+              - generic [ref=f30e82]: 
+              - generic [ref=f30e83]: Safe
+        - generic [ref=f30e84]:
+          - heading "Room Policies" [level=2] [ref=f30e85]
+          - generic [ref=f30e86]:
+            - generic [ref=f30e89]:
+              - heading "Check-in & Check-out" [level=3] [ref=f30e90]
+              - list [ref=f30e91]:
+                - listitem [ref=f30e92]:
+                  - generic [ref=f30e93]: 
+                  - generic [ref=f30e94]:
+                    - strong [ref=f30e95]: "Check-in:"
+                    - text: 3:00 PM - 8:00 PM
+                - listitem [ref=f30e96]:
+                  - generic [ref=f30e97]: 
+                  - generic [ref=f30e98]:
+                    - strong [ref=f30e99]: "Check-out:"
+                    - text: By 11:00 AM
+                - listitem [ref=f30e100]:
+                  - generic [ref=f30e101]: 
+                  - generic [ref=f30e102]:
+                    - strong [ref=f30e103]: "Early/Late:"
+                    - text: By arrangement
+            - generic [ref=f30e106]:
+              - heading "House Rules" [level=3] [ref=f30e107]
+              - list [ref=f30e108]:
+                - listitem [ref=f30e109]:
+                  - generic [ref=f30e110]: 
+                  - generic [ref=f30e111]: No smoking
+                - listitem [ref=f30e112]:
+                  - generic [ref=f30e113]: 
+                  - generic [ref=f30e114]: No parties or events
+                - listitem [ref=f30e115]:
+                  - generic [ref=f30e116]: 
+                  - generic [ref=f30e117]: Pets allowed (restrictions apply)
+      - generic [ref=f30e120]:
+        - heading "Booking Confirmed" [level=2] [ref=f30e121]
+        - paragraph [ref=f30e122]: "Your booking has been confirmed for the following dates:"
+        - paragraph [ref=f30e123]:
+          - strong [ref=f30e124]: 2027-04-26 - 2027-04-28
+        - link "Return home" [ref=f30e125] [cursor=pointer]:
+          - /url: /
+    - generic [ref=f30e127]:
+      - heading "Similar Rooms You Might Like" [level=2] [ref=f30e128]
+      - generic [ref=f30e129]:
+        - generic [ref=f30e131]:
+          - img "Double" [ref=f30e132]
+          - generic [ref=f30e133]:
+            - heading "Double" [level=3] [ref=f30e134]
+            - generic [ref=f30e135]:
+              - generic [ref=f30e136]: 
+              - generic [ref=f30e137]: 2 Guests
+              - generic [ref=f30e138]:
+                - generic [ref=f30e139]: £150
+                - text: /night
+            - paragraph [ref=f30e140]: Vestibulum sollicitudin, lectus ac mollis consequat, lorem orci ultrices tellus, eleifend euismod tortor dui egestas erat. Phasellus et ipsum nisl.
+            - link "View Details" [ref=f30e141] [cursor=pointer]:
+              - /url: /reservation/2?checkin=2027-04-26&checkout=2027-04-28
+        - generic [ref=f30e143]:
+          - img "Suite" [ref=f30e144]
+          - generic [ref=f30e145]:
+            - heading "Suite" [level=3] [ref=f30e146]
+            - generic [ref=f30e147]:
+              - generic [ref=f30e148]: 
+              - generic [ref=f30e149]: 2 Guests
+              - generic [ref=f30e150]:
+                - generic [ref=f30e151]: £225
+                - text: /night
+            - paragraph [ref=f30e152]: Etiam metus metus, fringilla ac sagittis id, consequat vel neque. Nunc commodo quis nisl nec posuere. Etiam at accumsan ex.
+            - link "View Details" [ref=f30e153] [cursor=pointer]:
+              - /url: /reservation/3?checkin=2027-04-26&checkout=2027-04-28
+    - contentinfo [ref=f30e154]:
+      - generic [ref=f30e155]:
+        - generic [ref=f30e156]:
+          - generic [ref=f30e157]:
+            - heading "Shady Meadows B&B" [level=5] [ref=f30e158]
+            - paragraph [ref=f30e159]: Welcome to Shady Meadows, a delightful Bed & Breakfast nestled in the hills on Newingtonfordburyshire. A place so beautiful you will never want to leave. All our rooms have comfortable beds and we provide breakfast from the locally sourced supermarket. It is a delightful place.
+            - generic [ref=f30e160]:
+              - link "" [ref=f30e161] [cursor=pointer]:
+                - /url: "#"
+              - link "" [ref=f30e163] [cursor=pointer]:
+                - /url: "#"
+              - link "" [ref=f30e165] [cursor=pointer]:
+                - /url: "#"
+          - generic [ref=f30e167]:
+            - heading "Contact Us" [level=5] [ref=f30e168]
+            - list [ref=f30e169]:
+              - listitem [ref=f30e170]:
+                - generic [ref=f30e171]: 
+                - text: Shady Meadows B&B, Shadows valley, Newingtonfordburyshire, Dilbery, N1 1AA
+              - listitem [ref=f30e172]:
+                - generic [ref=f30e173]: 
+                - text: "012345678901"
+              - listitem [ref=f30e174]:
+                - generic [ref=f30e175]: 
+                - text: fake@fakeemail.com
+          - generic [ref=f30e176]:
+            - heading "Quick Links" [level=5] [ref=f30e177]
+            - list [ref=f30e178]:
+              - listitem [ref=f30e179]:
+                - link "Home" [ref=f30e180] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=f30e181]:
+                - link "Rooms" [ref=f30e182] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=f30e183]:
+                - link "Booking" [ref=f30e184] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=f30e185]:
+                - link "Contact" [ref=f30e186] [cursor=pointer]:
+                  - /url: "#"
+        - separator [ref=f30e187]
+        - generic [ref=f30e189]:
+          - text: restful-booker-platform v2.2 Created by
+          - link "Mark Winteringham" [ref=f30e190] [cursor=pointer]:
+            - /url: http://www.mwtestconsultancy.co.uk
+          - text: "- © 2019-26"
+          - link "Cookie-Policy" [ref=f30e191] [cursor=pointer]:
+            - /url: /cookie
+          - text: "-"
+          - link "Privacy-Policy" [ref=f30e192] [cursor=pointer]:
+            - /url: /privacy
+          - text: "-"
+          - link "Admin panel" [ref=f30e193] [cursor=pointer]:
+            - /url: /admin
+  - generic [ref=f30e10] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=f30e11]
+    - generic [ref=f30e15]:
+      - button "Open issues overlay" [ref=f30e16]:
+        - generic [ref=f30e17]:
+          - generic [aria-hidden] [ref=f30e18]: "0"
+          - generic [ref=f30e19]: "1"
+        - generic [ref=f30e20]: Insight
+      - button "Collapse issues badge" [ref=f30e21]
+  - alert [ref=f30e24]

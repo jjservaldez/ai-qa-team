@@ -130,6 +130,7 @@ lessons-learned.md
 - The Executor is still an agent session I run by hand. Its timings are agent speed, not a manual estimate, and some fields were set by script instead of typed. Each case records its method.
 - The reference bugs were found by the same person who reviewed the output.
 - The local build and the public demo can differ (BUG-03, CAND-10). Each finding records which environment it was seen in.
+- Smoke is a short gate. Its partial coverage is deliberate: AC5–AC7 and AC11 have more cases in Regression and Full, concurrency is in Regression (TC-033) and Full (TC-034), refresh and Back are in Full (TC-042, TC-044, TC-045), and no case yet covers 5xx responses.
 
 ## Next steps
 

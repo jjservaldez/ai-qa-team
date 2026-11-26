@@ -1,0 +1,20 @@
+TC-053 network and console · 2026-11-26 · base http://localhost:3003
+Network (/api/ only, from Playwright MCP browser_network_requests):
+  Home page load (17:22:48):
+    GET /api/branding => 200
+    GET /api/room => 200
+  Step 5, "Check Availability" click (17:23:41):
+    GET /api/room?checkin=2027-03-15&checkout=2027-03-13 => 200
+  Step 6, Single card "Book now" click -> /reservation/1?checkin=2027-03-15&checkout=2027-03-13 (17:23:52):
+    GET /api/room/1 => 200
+    GET /api/branding => 200
+    GET /api/report/room/1 => 200
+    GET /api/room => 200
+  POST /api/booking: none (the case does not submit).
+Console (home page, 17:22:48):
+  [INFO] Download the React DevTools for a better development experience
+  [LOG] [HMR] connected
+Console (room page after step 6): 0 errors, 1 warning
+  [INFO] Download the React DevTools for a better development experience
+  [LOG] [HMR] connected
+  [WARNING] Your app (or one of its dependencies) is using an outdated JSX transform.

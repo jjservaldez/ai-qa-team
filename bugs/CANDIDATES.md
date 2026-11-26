@@ -1,4 +1,4 @@
-# Candidates (CAND-08 to CAND-16)
+# Candidates (CAND-08 to CAND-17)
 
 A candidate becomes a bug once it is reproduced and the expected behavior is backed by an AC or a PO decision. Every entry says which environment it was seen in.
 
@@ -16,6 +16,7 @@ A candidate becomes a bug once it is reproduced and the expected behavior is bac
 | CAND-14 | Medium | Room that doesn't exist: API 500 and an error page (should be 404) | TC-041 | Local 11-25 | Candidate · verify on demo |
 | CAND-15 | High | The submit button isn't disabled after the first click: double POST, and an error shown after a booking that worked | TC-034 | Local 11-25 | Candidate |
 | CAND-16 |  | The booking summary says "1 nights" (wrong plural) for a 1-night stay | TC-006 | Local 11-26 | Candidate |
+| CAND-17 |  | Moving Check In past the current Check Out leaves Check Out before Check In, with no warning | TC-053 | Local 11-26 | Candidate · linked to BUG-02 |
 
 ---
 
@@ -67,3 +68,8 @@ A candidate becomes a bug once it is reproduced and the expected behavior is bac
 ## CAND-16 · The booking summary says "1 nights"
 - **Local, 11-26 (TC-006):** for a 1-night stay (2027-01-11 to 2027-01-12, room 1), the Price Summary reads "£100 x 1 nights".
 - The amounts are correct (£100, £25, £15, Total £140). Only the plural is wrong; it should read "1 night".
+
+## CAND-17 · Check Out is left before a new Check In
+- **Local, 11-26 (TC-053 re-check):** on the home page, Check Out was prefilled as 27/11/2026. After Check In was set to 15/03/2027 with the date picker, Check Out stayed at 27/11/2026, before the new Check In, with no warning.
+- The "Book now" links then carried `checkin=2027-03-15&checkout=2026-11-27`.
+- **Linked to BUG-02:** the same missing date-range validation, reached by changing Check In instead of Check Out.

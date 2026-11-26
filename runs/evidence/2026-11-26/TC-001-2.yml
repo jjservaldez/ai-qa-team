@@ -1,0 +1,310 @@
+- generic [ref=f14e1]:
+  - generic [ref=f14e3]:
+    - navigation [ref=f14e4]:
+      - generic [ref=f14e5]:
+        - link "Shady Meadows B&B" [ref=f14e6] [cursor=pointer]:
+          - /url: /
+        - list [ref=f14e9]:
+          - listitem [ref=f14e10]:
+            - link "Rooms" [ref=f14e11] [cursor=pointer]:
+              - /url: /#rooms
+          - listitem [ref=f14e12]:
+            - link "Booking" [ref=f14e13] [cursor=pointer]:
+              - /url: /#booking
+          - listitem [ref=f14e14]:
+            - link "Amenities" [ref=f14e15] [cursor=pointer]:
+              - /url: /#amenities
+          - listitem [ref=f14e16]:
+            - link "Location" [ref=f14e17] [cursor=pointer]:
+              - /url: /#location
+          - listitem [ref=f14e18]:
+            - link "Contact" [ref=f14e19] [cursor=pointer]:
+              - /url: /#contact
+          - listitem [ref=f14e20]:
+            - link "Admin" [ref=f14e21] [cursor=pointer]:
+              - /url: /admin
+    - navigation "breadcrumb" [ref=f14e24]:
+      - list [ref=f14e25]:
+        - listitem [ref=f14e26]:
+          - link "Home" [ref=f14e27] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f14e28]:
+          - text: /
+          - link "Rooms" [ref=f14e29] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f14e30]: / Single Room
+    - generic [ref=f14e32]:
+      - generic [ref=f14e33]:
+        - generic [ref=f14e34]:
+          - heading "Single Room" [level=1] [ref=f14e35]
+          - generic [ref=f14e36]:
+            - generic [ref=f14e37]: Accessible
+            - generic [ref=f14e39]:
+              - generic [ref=f14e40]: 
+              - text: Max 2 Guests
+        - img "Room Image" [ref=f14e44]
+        - generic [ref=f14e45]:
+          - heading "Room Description" [level=2] [ref=f14e46]
+          - paragraph [ref=f14e47]: Aenean porttitor mauris sit amet lacinia molestie. In posuere accumsan aliquet. Maecenas sit amet nisl massa. Interdum et malesuada fames ac ante.
+        - generic [ref=f14e48]:
+          - heading "Room Features" [level=2] [ref=f14e49]
+          - generic [ref=f14e50]:
+            - generic [ref=f14e52]:
+              - generic [ref=f14e53]: 
+              - generic [ref=f14e54]: TV
+            - generic [ref=f14e56]:
+              - generic [ref=f14e57]: 
+              - generic [ref=f14e58]: WiFi
+            - generic [ref=f14e60]:
+              - generic [ref=f14e61]: 
+              - generic [ref=f14e62]: Safe
+        - generic [ref=f14e63]:
+          - heading "Room Policies" [level=2] [ref=f14e64]
+          - generic [ref=f14e65]:
+            - generic [ref=f14e68]:
+              - heading "Check-in & Check-out" [level=3] [ref=f14e69]
+              - list [ref=f14e70]:
+                - listitem [ref=f14e71]:
+                  - generic [ref=f14e72]: 
+                  - generic [ref=f14e73]:
+                    - strong [ref=f14e74]: "Check-in:"
+                    - text: 3:00 PM - 8:00 PM
+                - listitem [ref=f14e75]:
+                  - generic [ref=f14e76]: 
+                  - generic [ref=f14e77]:
+                    - strong [ref=f14e78]: "Check-out:"
+                    - text: By 11:00 AM
+                - listitem [ref=f14e79]:
+                  - generic [ref=f14e80]: 
+                  - generic [ref=f14e81]:
+                    - strong [ref=f14e82]: "Early/Late:"
+                    - text: By arrangement
+            - generic [ref=f14e85]:
+              - heading "House Rules" [level=3] [ref=f14e86]
+              - list [ref=f14e87]:
+                - listitem [ref=f14e88]:
+                  - generic [ref=f14e89]: 
+                  - generic [ref=f14e90]: No smoking
+                - listitem [ref=f14e91]:
+                  - generic [ref=f14e92]: 
+                  - generic [ref=f14e93]: No parties or events
+                - listitem [ref=f14e94]:
+                  - generic [ref=f14e95]: 
+                  - generic [ref=f14e96]: Pets allowed (restrictions apply)
+      - generic [ref=f14e99]:
+        - heading "Book This Room" [level=2] [ref=f14e100]
+        - generic [ref=f14e101]:
+          - generic [ref=f14e102]: £100
+          - generic [ref=f14e103]: per night
+        - generic [ref=f14e104]:
+          - generic [ref=f14e106]:
+            - generic [ref=f14e107]:
+              - generic [ref=f14e108]:
+                - button "Today" [ref=f14e109] [cursor=pointer]
+                - button "Back" [ref=f14e110] [cursor=pointer]
+                - button "Next" [active] [ref=f14e111] [cursor=pointer]
+              - generic [ref=f14e112]: December 2027
+            - table "Month View" [ref=f14e113]:
+              - row [ref=f14e114]:
+                - columnheader "Sun" [ref=f14e116]
+                - columnheader "Mon" [ref=f14e118]
+                - columnheader "Tue" [ref=f14e120]
+                - columnheader "Wed" [ref=f14e122]
+                - columnheader "Thu" [ref=f14e124]
+                - columnheader "Fri" [ref=f14e126]
+                - columnheader "Sat" [ref=f14e128]
+              - rowgroup [ref=f14e129]:
+                - row [ref=f14e366]:
+                  - generic [ref=f14e367]:
+                    - cell [ref=f14e368]:
+                      - button "28" [ref=f14e369] [cursor=pointer]
+                    - cell [ref=f14e370]:
+                      - button "29" [ref=f14e371] [cursor=pointer]
+                    - cell [ref=f14e372]:
+                      - button "30" [ref=f14e373] [cursor=pointer]
+                    - cell [ref=f14e374]:
+                      - button "01" [ref=f14e375] [cursor=pointer]
+                    - cell [ref=f14e376]:
+                      - button "02" [ref=f14e377] [cursor=pointer]
+                    - cell [ref=f14e378]:
+                      - button "03" [ref=f14e379] [cursor=pointer]
+                    - cell [ref=f14e380]:
+                      - button "04" [ref=f14e381] [cursor=pointer]
+              - rowgroup [ref=f14e154]:
+                - row [ref=f14e390]:
+                  - generic [ref=f14e391]:
+                    - cell [ref=f14e392]:
+                      - button "05" [ref=f14e393] [cursor=pointer]
+                    - cell [ref=f14e394]:
+                      - button "06" [ref=f14e395] [cursor=pointer]
+                    - cell [ref=f14e396]:
+                      - button "07" [ref=f14e397] [cursor=pointer]
+                    - cell [ref=f14e398]:
+                      - button "08" [ref=f14e399] [cursor=pointer]
+                    - cell [ref=f14e400]:
+                      - button "09" [ref=f14e401] [cursor=pointer]
+                    - cell [ref=f14e402]:
+                      - button "10" [ref=f14e403] [cursor=pointer]
+                    - cell [ref=f14e404]:
+                      - button "11" [ref=f14e405] [cursor=pointer]
+              - rowgroup [ref=f14e179]:
+                - row "12 13 14 15 16 17 18 Selected" [ref=f14e414]:
+                  - generic [ref=f14e415]:
+                    - cell [ref=f14e416]:
+                      - button "12" [ref=f14e417] [cursor=pointer]
+                    - cell [ref=f14e418]:
+                      - button "13" [ref=f14e419] [cursor=pointer]
+                    - cell [ref=f14e420]:
+                      - button "14" [ref=f14e421] [cursor=pointer]
+                    - cell [ref=f14e422]:
+                      - button "15" [ref=f14e423] [cursor=pointer]
+                    - cell [ref=f14e424]:
+                      - button "16" [ref=f14e425] [cursor=pointer]
+                    - cell [ref=f14e426]:
+                      - button "17" [ref=f14e427] [cursor=pointer]
+                    - cell [ref=f14e428]:
+                      - button "18" [ref=f14e429] [cursor=pointer]
+                  - generic "Selected" [ref=f14e434] [cursor=pointer]
+              - rowgroup [ref=f14e204]:
+                - row [ref=f14e443]:
+                  - generic [ref=f14e444]:
+                    - cell [ref=f14e445]:
+                      - button "19" [ref=f14e446] [cursor=pointer]
+                    - cell [ref=f14e447]:
+                      - button "20" [ref=f14e448] [cursor=pointer]
+                    - cell [ref=f14e449]:
+                      - button "21" [ref=f14e450] [cursor=pointer]
+                    - cell [ref=f14e451]:
+                      - button "22" [ref=f14e452] [cursor=pointer]
+                    - cell [ref=f14e453]:
+                      - button "23" [ref=f14e454] [cursor=pointer]
+                    - cell [ref=f14e455]:
+                      - button "24" [ref=f14e456] [cursor=pointer]
+                    - cell [ref=f14e457]:
+                      - button "25" [ref=f14e458] [cursor=pointer]
+              - rowgroup [ref=f14e229]:
+                - row [ref=f14e467]:
+                  - generic [ref=f14e468]:
+                    - cell [ref=f14e469]:
+                      - button "26" [ref=f14e470] [cursor=pointer]
+                    - cell [ref=f14e471]:
+                      - button "27" [ref=f14e472] [cursor=pointer]
+                    - cell [ref=f14e473]:
+                      - button "28" [ref=f14e474] [cursor=pointer]
+                    - cell [ref=f14e475]:
+                      - button "29" [ref=f14e476] [cursor=pointer]
+                    - cell [ref=f14e477]:
+                      - button "30" [ref=f14e478] [cursor=pointer]
+                    - cell [ref=f14e479]:
+                      - button "31" [ref=f14e480] [cursor=pointer]
+                    - cell [ref=f14e481]:
+                      - button "01" [ref=f14e482] [cursor=pointer]
+          - generic [ref=f14e255]:
+            - heading "Price Summary" [level=3] [ref=f14e256]
+            - generic [ref=f14e257]:
+              - generic [ref=f14e258]: £100 x 2 nights
+              - generic [ref=f14e259]: £200
+            - generic [ref=f14e260]:
+              - generic [ref=f14e261]: Cleaning fee
+              - generic [ref=f14e262]: £25
+            - generic [ref=f14e263]:
+              - generic [ref=f14e264]: Service fee
+              - generic [ref=f14e265]: £15
+            - separator [ref=f14e266]
+            - generic [ref=f14e267]:
+              - generic [ref=f14e268]: Total
+              - generic [ref=f14e269]: £240
+          - button "Reserve Now" [ref=f14e270] [cursor=pointer]
+    - generic [ref=f14e272]:
+      - heading "Similar Rooms You Might Like" [level=2] [ref=f14e273]
+      - generic [ref=f14e274]:
+        - generic [ref=f14e276]:
+          - img "Double" [ref=f14e277]
+          - generic [ref=f14e278]:
+            - heading "Double" [level=3] [ref=f14e279]
+            - generic [ref=f14e280]:
+              - generic [ref=f14e281]: 
+              - generic [ref=f14e282]: 2 Guests
+              - generic [ref=f14e283]:
+                - generic [ref=f14e284]: £150
+                - text: /night
+            - paragraph [ref=f14e285]: Vestibulum sollicitudin, lectus ac mollis consequat, lorem orci ultrices tellus, eleifend euismod tortor dui egestas erat. Phasellus et ipsum nisl.
+            - link "View Details" [ref=f14e286] [cursor=pointer]:
+              - /url: /reservation/2?checkin=2027-12-14&checkout=2027-12-16
+        - generic [ref=f14e288]:
+          - img "Suite" [ref=f14e289]
+          - generic [ref=f14e290]:
+            - heading "Suite" [level=3] [ref=f14e291]
+            - generic [ref=f14e292]:
+              - generic [ref=f14e293]: 
+              - generic [ref=f14e294]: 2 Guests
+              - generic [ref=f14e295]:
+                - generic [ref=f14e296]: £225
+                - text: /night
+            - paragraph [ref=f14e297]: Etiam metus metus, fringilla ac sagittis id, consequat vel neque. Nunc commodo quis nisl nec posuere. Etiam at accumsan ex.
+            - link "View Details" [ref=f14e298] [cursor=pointer]:
+              - /url: /reservation/3?checkin=2027-12-14&checkout=2027-12-16
+    - contentinfo [ref=f14e299]:
+      - generic [ref=f14e300]:
+        - generic [ref=f14e301]:
+          - generic [ref=f14e302]:
+            - heading "Shady Meadows B&B" [level=5] [ref=f14e303]
+            - paragraph [ref=f14e304]: Welcome to Shady Meadows, a delightful Bed & Breakfast nestled in the hills on Newingtonfordburyshire. A place so beautiful you will never want to leave. All our rooms have comfortable beds and we provide breakfast from the locally sourced supermarket. It is a delightful place.
+            - generic [ref=f14e305]:
+              - link "" [ref=f14e306] [cursor=pointer]:
+                - /url: "#"
+              - link "" [ref=f14e308] [cursor=pointer]:
+                - /url: "#"
+              - link "" [ref=f14e310] [cursor=pointer]:
+                - /url: "#"
+          - generic [ref=f14e312]:
+            - heading "Contact Us" [level=5] [ref=f14e313]
+            - list [ref=f14e314]:
+              - listitem [ref=f14e315]:
+                - generic [ref=f14e316]: 
+                - text: Shady Meadows B&B, Shadows valley, Newingtonfordburyshire, Dilbery, N1 1AA
+              - listitem [ref=f14e317]:
+                - generic [ref=f14e318]: 
+                - text: "012345678901"
+              - listitem [ref=f14e319]:
+                - generic [ref=f14e320]: 
+                - text: fake@fakeemail.com
+          - generic [ref=f14e321]:
+            - heading "Quick Links" [level=5] [ref=f14e322]
+            - list [ref=f14e323]:
+              - listitem [ref=f14e324]:
+                - link "Home" [ref=f14e325] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=f14e326]:
+                - link "Rooms" [ref=f14e327] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=f14e328]:
+                - link "Booking" [ref=f14e329] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=f14e330]:
+                - link "Contact" [ref=f14e331] [cursor=pointer]:
+                  - /url: "#"
+        - separator [ref=f14e332]
+        - generic [ref=f14e334]:
+          - text: restful-booker-platform v2.2 Created by
+          - link "Mark Winteringham" [ref=f14e335] [cursor=pointer]:
+            - /url: http://www.mwtestconsultancy.co.uk
+          - text: "- © 2019-26"
+          - link "Cookie-Policy" [ref=f14e336] [cursor=pointer]:
+            - /url: /cookie
+          - text: "-"
+          - link "Privacy-Policy" [ref=f14e337] [cursor=pointer]:
+            - /url: /privacy
+          - text: "-"
+          - link "Admin panel" [ref=f14e338] [cursor=pointer]:
+            - /url: /admin
+  - generic [ref=f14e343] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=f14e344]
+    - generic [ref=f14e348]:
+      - button "Open issues overlay" [ref=f14e349]:
+        - generic [ref=f14e350]:
+          - generic [aria-hidden] [ref=f14e351]: "0"
+          - generic [ref=f14e352]: "1"
+        - generic [ref=f14e353]: Insight
+      - button "Collapse issues badge" [ref=f14e354]
+  - alert [ref=f14e357]

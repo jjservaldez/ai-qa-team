@@ -1,0 +1,221 @@
+- generic [active] [ref=f14e1]:
+  - generic [ref=f14e3]:
+    - navigation [ref=f14e4]:
+      - generic [ref=f14e5]:
+        - link "Shady Meadows B&B" [ref=f14e6] [cursor=pointer]:
+          - /url: /
+        - list [ref=f14e9]:
+          - listitem [ref=f14e10]:
+            - link "Rooms" [ref=f14e11] [cursor=pointer]:
+              - /url: /#rooms
+          - listitem [ref=f14e12]:
+            - link "Booking" [ref=f14e13] [cursor=pointer]:
+              - /url: /#booking
+          - listitem [ref=f14e14]:
+            - link "Amenities" [ref=f14e15] [cursor=pointer]:
+              - /url: /#amenities
+          - listitem [ref=f14e16]:
+            - link "Location" [ref=f14e17] [cursor=pointer]:
+              - /url: /#location
+          - listitem [ref=f14e18]:
+            - link "Contact" [ref=f14e19] [cursor=pointer]:
+              - /url: /#contact
+          - listitem [ref=f14e20]:
+            - link "Admin" [ref=f14e21] [cursor=pointer]:
+              - /url: /admin
+    - navigation "breadcrumb" [ref=f14e24]:
+      - list [ref=f14e25]:
+        - listitem [ref=f14e26]:
+          - link "Home" [ref=f14e27] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f14e28]:
+          - text: /
+          - link "Rooms" [ref=f14e29] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f14e30]: / Single Room
+    - generic [ref=f14e32]:
+      - generic [ref=f14e33]:
+        - generic [ref=f14e34]:
+          - heading "Single Room" [level=1] [ref=f14e35]
+          - generic [ref=f14e36]:
+            - generic [ref=f14e37]: Accessible
+            - generic [ref=f14e39]:
+              - generic [ref=f14e40]: 
+              - text: Max 2 Guests
+        - img "Room Image" [ref=f14e44]
+        - generic [ref=f14e45]:
+          - heading "Room Description" [level=2] [ref=f14e46]
+          - paragraph [ref=f14e47]: Aenean porttitor mauris sit amet lacinia molestie. In posuere accumsan aliquet. Maecenas sit amet nisl massa. Interdum et malesuada fames ac ante.
+        - generic [ref=f14e48]:
+          - heading "Room Features" [level=2] [ref=f14e49]
+          - generic [ref=f14e50]:
+            - generic [ref=f14e52]:
+              - generic [ref=f14e53]: 
+              - generic [ref=f14e54]: TV
+            - generic [ref=f14e56]:
+              - generic [ref=f14e57]: 
+              - generic [ref=f14e58]: WiFi
+            - generic [ref=f14e60]:
+              - generic [ref=f14e61]: 
+              - generic [ref=f14e62]: Safe
+        - generic [ref=f14e63]:
+          - heading "Room Policies" [level=2] [ref=f14e64]
+          - generic [ref=f14e65]:
+            - generic [ref=f14e68]:
+              - heading "Check-in & Check-out" [level=3] [ref=f14e69]
+              - list [ref=f14e70]:
+                - listitem [ref=f14e71]:
+                  - generic [ref=f14e72]: 
+                  - generic [ref=f14e73]:
+                    - strong [ref=f14e74]: "Check-in:"
+                    - text: 3:00 PM - 8:00 PM
+                - listitem [ref=f14e75]:
+                  - generic [ref=f14e76]: 
+                  - generic [ref=f14e77]:
+                    - strong [ref=f14e78]: "Check-out:"
+                    - text: By 11:00 AM
+                - listitem [ref=f14e79]:
+                  - generic [ref=f14e80]: 
+                  - generic [ref=f14e81]:
+                    - strong [ref=f14e82]: "Early/Late:"
+                    - text: By arrangement
+            - generic [ref=f14e85]:
+              - heading "House Rules" [level=3] [ref=f14e86]
+              - list [ref=f14e87]:
+                - listitem [ref=f14e88]:
+                  - generic [ref=f14e89]: 
+                  - generic [ref=f14e90]: No smoking
+                - listitem [ref=f14e91]:
+                  - generic [ref=f14e92]: 
+                  - generic [ref=f14e93]: No parties or events
+                - listitem [ref=f14e94]:
+                  - generic [ref=f14e95]: 
+                  - generic [ref=f14e96]: Pets allowed (restrictions apply)
+      - generic [ref=f14e99]:
+        - heading "Book This Room" [level=2] [ref=f14e100]
+        - generic [ref=f14e101]:
+          - generic [ref=f14e102]: £100
+          - generic [ref=f14e103]: per night
+        - generic [ref=f14e104]:
+          - generic [ref=f14e105]:
+            - generic [ref=f14e483]: 
+            - textbox "Firstname" [ref=f14e485]
+          - generic [ref=f14e254]:
+            - generic [ref=f14e486]: 
+            - textbox "Lastname" [ref=f14e488]
+          - generic [ref=f14e489]:
+            - generic [ref=f14e490]: 
+            - textbox "Email" [ref=f14e492]
+          - generic [ref=f14e493]:
+            - generic [ref=f14e494]: 
+            - textbox "Phone" [ref=f14e496]
+          - generic [ref=f14e498]:
+            - heading "Price Summary" [level=3] [ref=f14e499]
+            - generic [ref=f14e500]:
+              - generic [ref=f14e501]: £100 x 2 nights
+              - generic [ref=f14e502]: £200
+            - generic [ref=f14e503]:
+              - generic [ref=f14e504]: Cleaning fee
+              - generic [ref=f14e505]: £25
+            - generic [ref=f14e506]:
+              - generic [ref=f14e507]: Service fee
+              - generic [ref=f14e508]: £15
+            - separator [ref=f14e509]
+            - generic [ref=f14e510]:
+              - generic [ref=f14e511]: Total
+              - generic [ref=f14e512]: £240
+          - button "Reserve Now" [ref=f14e513] [cursor=pointer]
+          - button "Cancel" [ref=f14e514] [cursor=pointer]
+    - generic [ref=f14e272]:
+      - heading "Similar Rooms You Might Like" [level=2] [ref=f14e273]
+      - generic [ref=f14e274]:
+        - generic [ref=f14e276]:
+          - img "Double" [ref=f14e277]
+          - generic [ref=f14e278]:
+            - heading "Double" [level=3] [ref=f14e279]
+            - generic [ref=f14e280]:
+              - generic [ref=f14e281]: 
+              - generic [ref=f14e282]: 2 Guests
+              - generic [ref=f14e283]:
+                - generic [ref=f14e284]: £150
+                - text: /night
+            - paragraph [ref=f14e285]: Vestibulum sollicitudin, lectus ac mollis consequat, lorem orci ultrices tellus, eleifend euismod tortor dui egestas erat. Phasellus et ipsum nisl.
+            - link "View Details" [ref=f14e286] [cursor=pointer]:
+              - /url: /reservation/2?checkin=2027-12-14&checkout=2027-12-16
+        - generic [ref=f14e288]:
+          - img "Suite" [ref=f14e289]
+          - generic [ref=f14e290]:
+            - heading "Suite" [level=3] [ref=f14e291]
+            - generic [ref=f14e292]:
+              - generic [ref=f14e293]: 
+              - generic [ref=f14e294]: 2 Guests
+              - generic [ref=f14e295]:
+                - generic [ref=f14e296]: £225
+                - text: /night
+            - paragraph [ref=f14e297]: Etiam metus metus, fringilla ac sagittis id, consequat vel neque. Nunc commodo quis nisl nec posuere. Etiam at accumsan ex.
+            - link "View Details" [ref=f14e298] [cursor=pointer]:
+              - /url: /reservation/3?checkin=2027-12-14&checkout=2027-12-16
+    - contentinfo [ref=f14e299]:
+      - generic [ref=f14e300]:
+        - generic [ref=f14e301]:
+          - generic [ref=f14e302]:
+            - heading "Shady Meadows B&B" [level=5] [ref=f14e303]
+            - paragraph [ref=f14e304]: Welcome to Shady Meadows, a delightful Bed & Breakfast nestled in the hills on Newingtonfordburyshire. A place so beautiful you will never want to leave. All our rooms have comfortable beds and we provide breakfast from the locally sourced supermarket. It is a delightful place.
+            - generic [ref=f14e305]:
+              - link "" [ref=f14e306] [cursor=pointer]:
+                - /url: "#"
+              - link "" [ref=f14e308] [cursor=pointer]:
+                - /url: "#"
+              - link "" [ref=f14e310] [cursor=pointer]:
+                - /url: "#"
+          - generic [ref=f14e312]:
+            - heading "Contact Us" [level=5] [ref=f14e313]
+            - list [ref=f14e314]:
+              - listitem [ref=f14e315]:
+                - generic [ref=f14e316]: 
+                - text: Shady Meadows B&B, Shadows valley, Newingtonfordburyshire, Dilbery, N1 1AA
+              - listitem [ref=f14e317]:
+                - generic [ref=f14e318]: 
+                - text: "012345678901"
+              - listitem [ref=f14e319]:
+                - generic [ref=f14e320]: 
+                - text: fake@fakeemail.com
+          - generic [ref=f14e321]:
+            - heading "Quick Links" [level=5] [ref=f14e322]
+            - list [ref=f14e323]:
+              - listitem [ref=f14e324]:
+                - link "Home" [ref=f14e325] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=f14e326]:
+                - link "Rooms" [ref=f14e327] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=f14e328]:
+                - link "Booking" [ref=f14e329] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=f14e330]:
+                - link "Contact" [ref=f14e331] [cursor=pointer]:
+                  - /url: "#"
+        - separator [ref=f14e332]
+        - generic [ref=f14e334]:
+          - text: restful-booker-platform v2.2 Created by
+          - link "Mark Winteringham" [ref=f14e335] [cursor=pointer]:
+            - /url: http://www.mwtestconsultancy.co.uk
+          - text: "- © 2019-26"
+          - link "Cookie-Policy" [ref=f14e336] [cursor=pointer]:
+            - /url: /cookie
+          - text: "-"
+          - link "Privacy-Policy" [ref=f14e337] [cursor=pointer]:
+            - /url: /privacy
+          - text: "-"
+          - link "Admin panel" [ref=f14e338] [cursor=pointer]:
+            - /url: /admin
+  - generic [ref=f14e343] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=f14e344]
+    - generic [ref=f14e348]:
+      - button "Open issues overlay" [ref=f14e349]:
+        - generic [ref=f14e350]:
+          - generic [aria-hidden] [ref=f14e351]: "0"
+          - generic [ref=f14e352]: "1"
+        - generic [ref=f14e353]: Insight
+      - button "Collapse issues badge" [ref=f14e354]
+  - alert [ref=f14e357]
