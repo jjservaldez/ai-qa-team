@@ -87,3 +87,13 @@ Cases that cover each known bug, on the path where it was reproduced or a closel
 - The app is a shared public demo: if a precondition says a room is free and it is not, move both dates by a week.
 - TC-008, TC-034 and TC-046 note checks that need the Admin panel, which I had no credentials for.
 - TC-017 depends on a product decision (BUG-04) and is written for the rule I recommend, not the current ACs.
+
+## Execution copy
+
+[execution-copy.csv](execution-copy.csv) is the suite the Executor runs. It matches the final suite, except for the date fixes made for execution (L-26, L-27):
+- **TC-001** moved to 14–16/12/2026.
+- **TC-004** moved to 2026-12-21..23.
+- **TC-002** is relative to the execution date (D, D+1).
+- **TC-037** has a reworded precondition.
+
+The reviewed original stays unchanged in `final-test-suite.csv`.
