@@ -11,7 +11,7 @@ A team of AI agents that design, review and run manual test cases, led by a huma
 | **Designer** | Live | Writes manual test cases from a user story, its acceptance criteria and a UI map | [prompts/](prompts/) (v1–v5, v6 draft) |
 | **Peer Reviewer** | Live | Independent second set of eyes. Read-only, clean context. Reviews generated suites *and* execution results | [.claude/agents/peer-reviewer.md](.claude/agents/peer-reviewer.md) · [reviewer/](reviewer/README.md) |
 | **QA Lead** (human) | — | Approves prompts, triages every review comment, owns severity and verdict rules, talks to the PO | [lessons-learned.md](lessons-learned.md) |
-| **Executor** | Built, first run pending | Runs the cases in a real browser through Playwright MCP and records evidence. Defined as a subagent with the rules learned from the manual run and its reviews | [.claude/agents/executor.md](.claude/agents/executor.md) · [.mcp.json](.mcp.json) |
+| **Executor** | Live | Runs the cases in a real browser through Playwright MCP and records evidence. Defined as a subagent with the rules learned from the manual run and its reviews | [.claude/agents/executor.md](.claude/agents/executor.md) · [.mcp.json](.mcp.json) |
 | **Data Validator** | Built, not wired in | Checks booking data with SQL; its `--check` mode is verified by mutation | [shady-meadows-sql](https://github.com/jjservaldez/shady-meadows-sql) |
 | **Reporter** | Planned | Drafts bug reports from the Executor's evidence, then sends them back through the Reviewer | — |
 
@@ -30,21 +30,25 @@ Designer → Peer Reviewer → QA Lead → Executor → Peer Reviewer (on result
 
 Two runs per version, each in a fresh chat. v1 is one run reviewed twice. Before the reviewer was trusted, it was measured against my own review of v1: it found 11 of my 11 findings in both passes, and I accepted all 7 of the comments I triaged. Details: [reviewer/results/comparison-across-versions.md](reviewer/results/comparison-across-versions.md)
 
-### Executing: 52 cases on a local copy of the app (2026-11-25)
+### Executing on a local copy of the app (2026-11-25 and 2026-11-26)
 
 | Suite | Cases | Time (agent) | Pass | Question | Fail |
 |---|---|---|---|---|---|
 | Smoke | 8 | 3 min 44 s | 5 | 1 | 2 |
+| Smoke, Executor agent (2026-11-26) | 8 | 5 min 25 s | 5 | 1 | 2 |
 | Regression | 16 | 4 min 29 s | 0 | 3 | 13 |
 | Full | 28 | 8 min 55 s | 19 | 5 | 4 |
 
+Executor total session 7 min 20 s, including the health check, the data check and the report.
+
+- **The Executor agent's first Smoke run (2026-11-26) matched all 8 of the 25-Nov verdicts.** After its triage, Smoke has 11 cases: TC-031, TC-035 and TC-038 were added for AC10–AC12.
 - **Every known bug that the cases cover reproduced, except BUG-03.** BUG-03 did not reproduce on this build.
 - **BUG-01 now has a cause backed by evidence:** the server answers 409, and the frontend throws a TypeError reading that response.
 - **The run found 6 new candidates (CAND-10 to CAND-15).** The worst is CAND-15: a double click sends two POSTs. The booking is created, but the user sees an error page.
 - **Stored data matches what the UI showed:** 32 bookings, one for each "Booking Confirmed". No rejected case stored anything, and there were no double bookings.
 - **The Peer Reviewer also reviewed the results:** 3 of my 52 verdicts changed because I had applied my own rules inconsistently, plus a set of method fixes.
 
-Runs: [Smoke](runs/execution-2026-11-25-smoke.md) · [Regression + Full](runs/execution-2026-11-25-regression-full.md) · Reviews: [reviewer/results/](reviewer/results/)
+Runs: [Smoke](runs/execution-2026-11-25-smoke.md) · [Regression + Full](runs/execution-2026-11-25-regression-full.md) · [Executor Smoke (2026-11-26)](runs/execution-2026-11-26-smoke-executor.md) · Reviews: [reviewer/results/](reviewer/results/) · [Executor Smoke review](reviewer/results/execution-2026-11-26-smoke-executor-review-a.md)
 
 ### Key findings
 
@@ -129,7 +133,7 @@ lessons-learned.md
 
 ## Next steps
 
-1. **Executor with Playwright MCP**, measured against a timed manual Smoke run.
+1. Run the 11-case Smoke with the Executor and the new evidence policy.
 2. **Reporter with Jira.** Bug drafts go through the Reviewer, and I approve them before any ticket is created.
 3. **API tests with Postman and Newman in CI.**
 4. **More skills.** The bug report template and the repo review checklist come next. Two already exist: [env-health-check](.claude/skills/env-health-check/SKILL.md) and [run-prompt-version](.claude/skills/run-prompt-version/SKILL.md).
