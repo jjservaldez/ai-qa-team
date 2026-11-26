@@ -500,3 +500,21 @@
   - CAND-13: £NaN when the URL has invalid dates.
   - CAND-14: a missing room returns 500 and an error page.
 - **CAND-10** (the calendar shades the check-out day) shows up in TC-001, 002, 011, 013, 038 and 049.
+
+---
+
+## Changes after the peer review (2026-11-25 19:59, QA lead triage)
+- **TC-017:** Fail → **Question (BUG-04 · PO-1)**. No AC requires letters. The ticket stays open with status "Needs PO decision".
+- **TC-052:** Fail → **Question (BUG-07 · PO-5)**. No AC in this story covers navigation. The ticket stays open.
+- **TC-021, TC-030:** stay **Pass**. Their oracles predate the AC8 clarification. BUG-05 is linked as observed. The AC8 clarification itself goes to the PO (PO-6); if confirmed, both oracles are updated in the next suite version.
+- **TC-034:** added **CAND-15**: the submit button isn't disabled, so a double-click sends two POSTs. This is separate from BUG-01.
+- **TC-040:** CAND-13 linked to **BUG-02**, as the likely same root cause.
+- **Already answered:** none of the four inputs has a maxlength (checked at 16:31). The TC-039 spinner was still present about 40 s after page load.
+- **Totals after triage:**
+  - Regression: 3 Question, 13 Fail.
+  - Full: 19 Pass, 5 Question, 4 Fail.
+- **Re-checks offered but not run yet:**
+  - TC-045 step 5 through the UI.
+  - TC-009 phone typed with real keystrokes.
+  - POST status for TC-036 and TC-048.
+  - TC-033 tab B in the foreground.
