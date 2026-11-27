@@ -146,6 +146,11 @@ Running log of lessons from building and evaluating the AI test-case agent. Each
 **Lesson:** The verdict and the ticket answer different questions. The verdict asks whether the app meets the spec. The ticket says QA observed something. A behavior with no AC still gets a ticket, with status "Needs PO decision". The PO's answer is written into the ticket, and that answer is the evidence. A clarification QA makes itself, like AC8 here, is also a question for the PO until it is confirmed.
 **Applied:** Added a PO decision log (PO-1 to PO-6) to the bug reports. TC-017 and TC-052 are now Question, linked to their tickets. When the PO decides, the related cases become Fail, or their oracles are updated.
 
+### L-36 · Save the agent's raw output byte for byte, from the transcript
+**What happened:** On 2026-11-26 the main session saved the peer reviewer's output after removing a two-space indent. It declared the change, and the content was the same, but it broke the rule that raw output stays unedited. For the next reviews, the session copied the text straight from the subagent's transcript, without retyping it, and reported the file size.
+**Lesson:** "Unedited" has to mean byte for byte. Small formatting changes look harmless, but once retyping is allowed, nobody can tell which differences came from the agent and which from the copy. Copying from the source, not from what the session shows, is what makes the file trustworthy evidence.
+**Applied:** Review prompts now ask to save the output "byte for byte, including whitespace". The session copies it from the subagent's transcript and reports the size and any missing final newline.
+
 ## Running the tests
 
 ### L-24 · Check that the environment is healthy before starting a run
@@ -173,6 +178,11 @@ Running log of lessons from building and evaluating the AI test-case agent. Each
 **Lesson:** An empty read from an agent can be a tooling problem, not an empty page. Before concluding anything, check the agent's own setup: viewport, network log and status codes.
 **Applied:** Runs record the viewport and start by checking the network log, not only the visible text.
 
+### L-34 · Tool versions are part of the environment
+**What happened:** Setting up the local copy on 2026-11-25, Maven 3.10.2 rejected the POM version `2.2.${revision}` and the build failed. `build_locally.sh` kept going anyway, so the screen showed an unrelated error ("Unable to access jarfile"). Maven 3.9.14 built the same commit without changes. Separately, starting the app with `-e true` ran the project's own end-to-end tests, which created a room and bookings before the suite even started.
+**Lesson:** Pinning the app's commit is not enough. The build tools, their versions and the start options decide whether the environment works and what data it starts with. When a build fails, read the build tool's own log, not the last line on the screen.
+**Applied:** The environment table records the app commit and the tool versions (Java, Maven, Node, Claude Code, Playwright MCP). The app starts with `run_locally.sh` without `-e`. The health check confirms 3 seeded bookings before every run, and the Executor reads the app commit with `git rev-parse HEAD`.
+
 ## Writing test cases
 
 ### L-11 · Say where to verify
@@ -182,3 +192,8 @@ Running log of lessons from building and evaluating the AI test-case agent. Each
 ### L-12 · Browser Back and in-app navigation are different tests
 **What happened:** TC-032 says "return to the home page" without saying how.
 **Lesson:** Browser Back can restore a cached page with old state, while a nav link reloads it. They exercise different behavior and should be separate cases.
+
+### L-35 · Don't check messages by their position
+**What happened:** TC-029 submits an empty form and gets 7 error messages. In the 25-Nov and 26-Nov runs, the same 7 messages came back in a different order. The server doesn't return them in a fixed order.
+**Lesson:** An oracle like "the third message says X" passes or fails by chance. Check messages by content and by the field they belong to, not by their place in the list.
+**Applied:** TC-029's oracle checks that each invalid field has a message that names it (AC8), in any order. New cases follow the same rule.
